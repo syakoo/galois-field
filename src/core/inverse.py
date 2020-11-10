@@ -2,7 +2,7 @@ from .types import Fp
 
 
 def inverse_el(el: Fp, p: int) -> Fp:
-    """Inverse an element over Fp
+    """Compute the inverse of an element over Fp
 
     Args:
         el (Fp): An element in Fp
