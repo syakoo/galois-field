@@ -1,7 +1,10 @@
-from typing import Union
+from typing import Any, Union
+
+import numpy as np
+from nptyping import NDArray
 
 from . import inverse as inv
-from .types import Fp
+from .types import Fp, Fpn
 
 
 def modulus_el(el: Union[Fp, float], p: int) -> Fp:
@@ -24,3 +27,10 @@ def modulus_el(el: Union[Fp, float], p: int) -> Fp:
         return 0
 
     return inte * inv.inverse_el(deci, p) % p
+
+
+def modulus_coeffs(coeffs: Union[Fpn, NDArray[Any, float]], p: int) -> Fpn:
+    if isinstance(coeffs, Fpn):
+        return coeffs % p
+
+    return np.array([modulus_el(el, p) for el in coeffs], int)
