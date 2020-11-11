@@ -34,3 +34,10 @@ def modulus_coeffs(coeffs: Union[Fpn, NDArray[Any, float]], p: int) -> Fpn:
         return coeffs % p
 
     return np.array([modulus_el(el, p) for el in coeffs], int)
+
+
+def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
+    _, r = np.polydiv(poly1, poly2)
+    coeffs = modulus_coeffs(r.coeffs, p)
+
+    return np.poly1d(coeffs)

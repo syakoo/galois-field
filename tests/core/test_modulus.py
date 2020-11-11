@@ -33,3 +33,15 @@ def test_modulus_coeffs(coeffs: Union[types.Fpn, NDArray[Any, float]],
     result = mod.modulus_coeffs(coeffs, p)
 
     assert (result == expected).all()
+
+
+@pytest.mark.parametrize('poly1, poly2, p, expected', [
+    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 0, 1]), 5, np.poly1d([3, 3])),
+    (np.poly1d([2, 1]), np.poly1d([1, 0, 1]), 11, np.poly1d([2, 1])),
+    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 0, 1]), 123456791, np.poly1d([123456789, 123456789]))
+])
+def test_modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int, expected: np.poly1d):
+    """poly1 = expected (mod poly2 over p)"""
+    result = mod.modulus_poly(poly1, poly2, p)
+
+    assert (result == expected).all()
