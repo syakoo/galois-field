@@ -1,17 +1,18 @@
 from __future__ import annotations
-from typing import Union
+from typing import Any, Union
 
 import numpy as np
+from nptyping import NDArray
 
 from src.core import types, modulus, inverse
 
 
 class ElementInGFpn:
-    def __init__(self, coeffs: types.Fpn, p: int, mod_poly: np.poly1d):
-        """An Element in GF(p^n)
+    def __init__(self, coeffs: NDArray[Any, int], p: int, mod_poly: np.poly1d):
+        """An Element in GF(p^n) class.
 
         Args:
-            coeffs (types.Fpn): Coefficients of an element in GF(p^n).
+            coeffs (NDArray[Any, int]): Coefficients of an element in GF(p^n).
             p (int): A prime number.
             mod_poly (np.poly1d): A monic irreducible polynomial.
         """
@@ -21,13 +22,20 @@ class ElementInGFpn:
 
     @property
     def poly(self) -> np.poly1d:
+        """A polynomial in GF(p^n). Read-only."""
         return self.__poly
 
     @property
     def coeffs(self) -> types.Fpn:
+        """Coefficients of the polynomial in GF(p^n)."""
         return self.__poly.coeffs
 
     def inverse(self) -> ElementInGFpn:
+        """Compute the inverse of the element in GF(p^n).
+
+        Returns:
+            ElementInGFpn: The inverse of the element in GF(p^n).
+        """
         inv_poly = inverse.inverse_poly(self.poly, self.p, self.mod_poly)
         return ElementInGFpn(inv_poly.coeffs, self.p, self.mod_poly)
 
