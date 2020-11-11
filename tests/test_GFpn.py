@@ -1,83 +1,40 @@
-from typing import Union, List
-
 import numpy as np
 import pytest
 
-from src.GFpn import GFpn
-from src.core.types import Fp, Fpn
+from src.GFpn import GF
 
 
-@pytest.mark.parametrize('coeffs, p, mod_coeffs, expected_coeffs', [
-    (np.array([4, 3, 2, 1]), None, None, np.array([4, 3, 2, 1])),
-    (np.array([4, 3, 2, 1]), 5, np.array([1, 0, 1]), np.array([3, 3])),
-    (np.array([2, 1]), 11, np.array([1, 0, 1]), np.array([2, 1])),
-    (np.array([4, 3, 2, 1]), 123456791, np.array(
-        [1, 0, 1]), np.array([123456789, 123456789]))
+@pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
+    (5, np.array([1, 2, 3]), np.array([1, 2, 3])),
+    (2, np.array([1, 2, 3]), np.array([1, 0, 1]))
 ])
-def test_GFpn_init(coeffs: Fpn, p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
-    if p is None and mod_coeffs is None:
-        result = GFpn(coeffs)
-    else:
-        result = GFpn(coeffs, p, mod_coeffs)
-
-    assert (result.coeffs == expected_coeffs).all()
+def test_GFpn_init(p, mod_coeffs, expected_coeffs):
+    gf = GF(p, mod_coeffs)
+    assert gf.p == p
+    assert (gf.mod_coeffs == expected_coeffs).all()
 
 
-@pytest.mark.parametrize('coeffs, p, mod_coeffs, expected', [
-    (np.array([4, 3, 2, 1]), None, None, '4x^3 + 3x^2 + 2x + 1'),
-    (np.array([2, 1]), 11, np.array([1, 0, 1]), '2x + 1 (mod F_11^2)'),
+@pytest.mark.parametrize('p', [(5), (2), (123456791)])
+def test_GFp_init(p):
+    gf = GF(p)
+    assert gf.p == p
+    assert gf.mod_coeffs is None
+    assert gf.mod_poly is None
+
+
+@pytest.mark.parametrize('p, mod_coeffs, expected', [
+    (5, np.array([1, 2, 3]), 'GF(5^2)'),
+    (2, np.array([1, 2, 3, 4, 5]), 'GF(2^4)')
 ])
-def test_GFpn_str(coeffs: Fpn, p: Union[int, None],
-                  mod_coeffs: Union[Fpn, None], expected: str):
-    if p is None and mod_coeffs is None:
-        GFpn.p = None
-        GFpn.mod_coeffs = None
-        result = GFpn(coeffs)
-    else:
-        result = GFpn(coeffs, p, mod_coeffs)
-
-    assert str(result) == expected
+def test_GFpn_str(p, mod_coeffs, expected):
+    gf = GF(p, mod_coeffs)
+    assert str(gf) == expected
 
 
-@pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
-    ([1, 2, 3, 4], [1, 2, 3, 4], 5, [1, 0, 0, 0, 1], [2, 4, 1, 3]),
-    ([1, 2, 3, 4], [1, 2, 3, 4], 31, [1, 0, 1], [4, 4])
+@pytest.mark.parametrize('p, expected', [
+    (5, 'GF(5)'),
+    (2, 'GF(2)')
 ])
-def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
-                  p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
-    el1 = GFpn(coeffs1, p, mod_coeffs)
-    el2 = GFpn(coeffs2, p, mod_coeffs)
-    result = el1 + el2
-
-    assert (result.coeffs == expected_coeffs).all()
-
-
-@pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
-    ([1, 2, 3, 4], [4, 3, 2, 1], 5, [1, 0, 0, 0, 1], [2, 4, 1, 3]),
-    ([1, 2, 3, 4], [4, 3, 2, 1], 31, [1, 0, 1], [4, 4])
-])
-def test_GFpn_sub(coeffs1: Fpn, coeffs2: Fpn,
-                  p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
-    el1 = GFpn(coeffs1, p, mod_coeffs)
-    el2 = GFpn(coeffs2, p, mod_coeffs)
-    result = el1 - el2
-
-    assert (result.coeffs == expected_coeffs).all()
-
-
-@pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
-    ([1, 2, 3, 4], [1, 2], 5, [1, 0, 0, 0, 1], [4, 2, 0, 2]),
-    ([1, 2], [1, 2, 3, 4], 31, [1, 0, 1], [6, 2]),
-    ([1, 2, 3, 4], 15, 31, [1, 0, 0, 0, 1], [15, 30, 14, 29]),
-    (15, [1, 2, 3, 4], 31, [1, 0, 0, 0, 1], [15, 30, 14, 29]),
-])
-def test_GFpn_mul(coeffs1: Union[List[Fp], Fp],
-                  coeffs2: Union[List[Fp], Fp],
-                  p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
-    el1 = GFpn(coeffs1, p, mod_coeffs) if isinstance(
-        coeffs1, list) else coeffs1
-    el2 = GFpn(coeffs2, p, mod_coeffs) if isinstance(
-        coeffs2, list) else coeffs2
-    result = el1 * el2
-
-    assert (result.coeffs == expected_coeffs).all()
+def test_GFp_str(p, expected):
+    gf = GF(p)
+    assert str(gf) == expected
