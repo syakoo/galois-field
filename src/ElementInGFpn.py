@@ -85,7 +85,8 @@ class ElementInGFpn:
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
-    def __truediv__(self, other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
+    def __truediv__(self,
+                    other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
         if isinstance(other, types.Fp):
             result = self.poly * inverse.inverse_el(other, self.p)
         else:
@@ -94,7 +95,8 @@ class ElementInGFpn:
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
-    def __rtruediv__(self, other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
+    def __rtruediv__(self,
+                     other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
         if isinstance(other, types.Fp):
             result = other * \
                 inverse.inverse_poly(self.poly, self.p, self.mod_poly)
