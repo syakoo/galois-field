@@ -30,6 +30,15 @@ def modulus_el(el: Union[Fp, float], p: int) -> Fp:
 
 
 def modulus_coeffs(coeffs: Union[Fpn, NDArray[Any, float]], p: int) -> Fpn:
+    """Compute all coefficients modulo p.
+
+    Args:
+        coeffs (Union[Fpn, NDArray[Any, float]]): Coefficients in Fp.
+        p (int): A prime number.
+
+    Returns:
+        Fpn: Coefficients modulo p.
+    """
     if isinstance(coeffs, Fpn):
         return coeffs % p
 
@@ -37,6 +46,16 @@ def modulus_coeffs(coeffs: Union[Fpn, NDArray[Any, float]], p: int) -> Fpn:
 
 
 def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
+    """Compute a polynomial modulo poly2.
+
+    Args:
+        poly1 (np.poly1d): An Element in Fpn.
+        poly2 (np.poly1d): a monic irreducible polynomial.
+        p (int): A prime number.
+
+    Returns:
+        np.poly1d: A polynomial modulo poly2.
+    """
     _, r = np.polydiv(poly1, poly2)
     coeffs = modulus_coeffs(r.coeffs, p)
 
