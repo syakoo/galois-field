@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Union, List
 
 import numpy as np
@@ -52,7 +53,7 @@ class GFpn(metaclass=GFpn_meta):
                 sig = ""
             else:
                 sig = " + "
-            
+
             if coeff == 0:
                 dig = ''
             elif i == 0:
@@ -63,11 +64,16 @@ class GFpn(metaclass=GFpn_meta):
                 dig = f'{sig}{coeff}x^{i}'
             result.append(dig)
         result = result[::-1]
-        
+
         if GFpn.p is not None and GFpn.mod_coeffs is not None:
             result.append(f' (mod F_{GFpn.p}^{len(GFpn.mod_coeffs) - 1})')
 
         return "".join(result)
+
+    def __add__(self, other: GFpn) -> GFpn:
+        result = self._poly + other._poly
+
+        return GFpn(result.coeffs)
 
     @property
     def poly(self):
