@@ -56,7 +56,7 @@ def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
     ([1, 2, 3, 4], [4, 3, 2, 1], 5, [1, 0, 0, 0, 1], [2, 4, 1, 3]),
     ([1, 2, 3, 4], [4, 3, 2, 1], 31, [1, 0, 1], [4, 4])
 ])
-def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
+def test_GFpn_sub(coeffs1: Fpn, coeffs2: Fpn,
                   p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
     el1 = GFpn(coeffs1, p, mod_coeffs)
     el2 = GFpn(coeffs2, p, mod_coeffs)
