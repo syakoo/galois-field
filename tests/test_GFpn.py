@@ -1,10 +1,10 @@
-from typing import Union
+from typing import Union, List
 
 import numpy as np
 import pytest
 
 from src.GFpn import GFpn
-from src.core.types import Fpn
+from src.core.types import Fp, Fpn
 
 
 @pytest.mark.parametrize('coeffs, p, mod_coeffs, expected_coeffs', [
@@ -67,12 +67,17 @@ def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
 
 @pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
     ([1, 2, 3, 4], [1, 2], 5, [1, 0, 0, 0, 1], [4, 2, 0, 2]),
-    ([1, 2], [1, 2, 3, 4], 31, [1, 0, 1], [6, 2])
+    ([1, 2], [1, 2, 3, 4], 31, [1, 0, 1], [6, 2]),
+    ([1, 2, 3, 4], 15, 31, [1, 0, 0, 0, 1], [15, 30, 14, 29]),
+    (15, [1, 2, 3, 4], 31, [1, 0, 0, 0, 1], [15, 30, 14, 29]),
 ])
-def test_GFpn_mul(coeffs1: Fpn, coeffs2: Fpn,
+def test_GFpn_mul(coeffs1: Union[List[Fp], Fp],
+                  coeffs2: Union[List[Fp], Fp],
                   p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
-    el1 = GFpn(coeffs1, p, mod_coeffs)
-    el2 = GFpn(coeffs2, p, mod_coeffs)
+    el1 = GFpn(coeffs1, p, mod_coeffs) if isinstance(
+        coeffs1, list) else coeffs1
+    el2 = GFpn(coeffs2, p, mod_coeffs) if isinstance(
+        coeffs2, list) else coeffs2
     result = el1 * el2
 
     assert (result.coeffs == expected_coeffs).all()

@@ -80,8 +80,19 @@ class GFpn(metaclass=GFpn_meta):
 
         return GFpn(result.coeffs)
 
-    def __mul__(self, other: GFpn) -> GFpn:
-        result = self._poly * other._poly
+    def __mul__(self, other: Union[GFpn, types.Fp]) -> GFpn:
+        if isinstance(other, types.Fp):
+            result = self._poly * other
+        else:
+            result = self._poly * other._poly
+
+        return GFpn(result.coeffs)
+
+    def __rmul__(self, other: Union[GFpn, types.Fp]) -> GFpn:
+        if isinstance(other, types.Fp):
+            result = self._poly * other
+        else:
+            result = self._poly * other._poly
 
         return GFpn(result.coeffs)
 
