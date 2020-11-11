@@ -1,7 +1,8 @@
 from __future__ import annotations
-from typing import Union, List
+from typing import Any, Union, List
 
 import numpy as np
+from nptyping import NDArray
 
 from src.core import types, modulus
 from src.ElementInGFpn import ElementInGFpn
@@ -10,7 +11,17 @@ from src.ElementInGFp import ElementInGFp
 
 class GF:
     def __init__(self, p: int,
-                 mod_coeffs: Union[types.Fpn, List[types.Fp], None] = None):
+                 mod_coeffs: Union[List[int], NDArray[Any, int], None] = None):
+        """Galois Field: GF(p^n).
+
+        Args:
+            p (int): A prime number.
+            mod_coeffs (Union[List[int], NDArray[Any, int], None], optional):
+                Coefficients of a monic irreducible polynomial.
+                If you want to use GF(p),
+                you do not need to put anything in this arg.
+                Defaults to None.
+        """
         self.__p = p
 
         if mod_coeffs is not None:
@@ -22,10 +33,12 @@ class GF:
 
     @property
     def p(self) -> int:
+        """A prime number. Read-only."""
         return self.__p
 
     @property
     def mod_coeffs(self) -> Union[types.Fpn, None]:
+        """Coefficients of the monic irreducible polynomial. Read-only."""
         if self.__mod_poly is None:
             return None
 
@@ -33,6 +46,7 @@ class GF:
 
     @property
     def mod_poly(self) -> np.poly1d:
+        """The monic irreducible polynomial. Read-only."""
         return self.__mod_poly
 
     def __str__(self) -> str:
@@ -43,6 +57,12 @@ class GF:
 
     def elm(self, int_or_coeffs: Union[int, List[int]])\
             -> Union[ElementInGFpn, ElementInGFp]:
+        """Generate the Element from the input value in GF.
+
+        Returns:
+            Union[ElementInGFpn, ElementInGFp]]:
+                The Element in GF(p) or GF(p^n).
+        """
         if self.mod_poly is not None:
             if isinstance(int_or_coeffs, list) \
                     or isinstance(int_or_coeffs, types.Fpn):
