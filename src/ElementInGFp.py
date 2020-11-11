@@ -6,10 +6,10 @@ from src.core import types, modulus, inverse
 
 class ElementInGFp:
     def __init__(self, value: int, p: int):
-        """An Element in GFp class.
+        """An Element in GF(p) class.
 
         Args:
-            value (int): An Element in GFp.
+            value (int): An Element in GF(p).
             p (int): A prime number.
         """
         self.__p = p
@@ -17,7 +17,7 @@ class ElementInGFp:
 
     @property
     def value(self) -> types.Fp:
-        """An Element in Fp. Read-only."""
+        """An Element in GF(p). Read-only."""
         return self.__value
 
     @property
@@ -29,7 +29,7 @@ class ElementInGFp:
         """Compute the inverse of the value modulo p.
 
         Returns:
-            ElementInGFp: The inverse of the value in Fp.
+            ElementInGFp: The inverse of the value in GF(p).
         """
         return ElementInGFp(inverse.inverse_el(self.value, self.p), self.p)
 
