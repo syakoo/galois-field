@@ -80,6 +80,11 @@ class GFpn(metaclass=GFpn_meta):
 
         return GFpn(result.coeffs)
 
+    def __mul__(self, other: GFpn) -> GFpn:
+        result = self._poly * other._poly
+
+        return GFpn(result.coeffs)
+
     @property
     def poly(self):
         return self._poly

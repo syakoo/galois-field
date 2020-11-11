@@ -63,3 +63,16 @@ def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
     result = el1 - el2
 
     assert (result.coeffs == expected_coeffs).all()
+
+
+@pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
+    ([1, 2, 3, 4], [1, 2], 5, [1, 0, 0, 0, 1], [4, 2, 0, 2]),
+    ([1, 2], [1, 2, 3, 4], 31, [1, 0, 1], [6, 2])
+])
+def test_GFpn_mul(coeffs1: Fpn, coeffs2: Fpn,
+                  p: int, mod_coeffs: Fpn, expected_coeffs: Fpn):
+    el1 = GFpn(coeffs1, p, mod_coeffs)
+    el2 = GFpn(coeffs2, p, mod_coeffs)
+    result = el1 * el2
+
+    assert (result.coeffs == expected_coeffs).all()
