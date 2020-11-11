@@ -45,6 +45,30 @@ class GFpn(metaclass=GFpn_meta):
 
         self.coeffs = coeffs
 
+    def __str__(self):
+        result = []
+        for i, coeff in enumerate(self.coeffs[::-1]):
+            if i == len(self.coeffs) - 1:
+                sig = ""
+            else:
+                sig = " + "
+            
+            if coeff == 0:
+                dig = ''
+            elif i == 0:
+                dig = f'{sig}{coeff}'
+            elif i == 1:
+                dig = f'{sig}{coeff}x'
+            else:
+                dig = f'{sig}{coeff}x^{i}'
+            result.append(dig)
+        result = result[::-1]
+        
+        if GFpn.p is not None and GFpn.mod_coeffs is not None:
+            result.append(f' (mod F_{GFpn.p}^{len(GFpn.mod_coeffs) - 1})')
+
+        return "".join(result)
+
     @property
     def poly(self):
         return self._poly
