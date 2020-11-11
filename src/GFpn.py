@@ -36,9 +36,23 @@ class GFpn_meta(type):
 
 
 class GFpn(metaclass=GFpn_meta):
+    """# Galois Field: GF(p^n)"""
+
     def __init__(self, coeffs: Union[types.Fpn, List[types.Fp]],
                  p: Union[int, None] = None,
                  mod_coeffs: Union[types.Fpn, List[types.Fp], None] = None) -> None:
+        """Galois Field: GF(p^n)
+
+        Args:
+            coeffs (Union[types.Fpn, List[types.Fp]]):
+                Coefficients of an element in GF(p^n).
+            p (Union[int, None], optional):
+                A prime number.
+                It is a class variable. Defaults to None.
+            mod_coeffs (Union[types.Fpn, List[types.Fp], None], optional):
+                Coefficients of a monic irreducible polynomial.
+                It is a class variable. Defaults to None.
+        """
         if p is not None:
             GFpn.p = p
         if mod_coeffs is not None:
