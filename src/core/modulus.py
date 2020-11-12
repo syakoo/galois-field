@@ -64,6 +64,17 @@ def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
 
 def modulus_pow_poly(poly: np.poly1d, e: int,
                      p: int, mod_poly: np.poly1d) -> np.poly1d:
+    """Compute the e-th power of a polynomial modulo mod_poly.
+
+    Args:
+        poly (np.poly1d): An element in Fpn.
+        e (int): An exponent.
+        p (int): A prime number.
+        mod_poly (np.poly1d): An monic irreducible polynomial.
+
+    Returns:
+        np.poly1d: the e-th power of a polynomial modulo mod_poly.
+    """
     ans = 1
     cur_exp = 1
     stack_polys = [poly]
