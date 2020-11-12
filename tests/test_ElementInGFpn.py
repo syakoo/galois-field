@@ -87,3 +87,33 @@ def test_GFpn_mul(coeffs1: Union[Fpn, Fp],
     result = el1 * el2
 
     assert (result.coeffs == expected_coeffs).all()
+
+
+@pytest.mark.parametrize("coeffs1, coeffs2, p, mod_coeffs, expected_coeffs", [
+    (np.array([1, 1]), np.array([4]), 11,
+     np.array([1, 1, 1]), np.array([3, 3])),
+    (np.array([1, 2]), np.array([1, 1]), 5,
+     np.array([1, 1, 1]), np.array([4, 1])),
+    (np.array([1, 2, 3]), np.array([1, 1]), 7,
+     np.array([1, 0, 0, 0, 1]), np.array([6, 1, 0, 2])),
+    (2, np.array([1, 1]), 7,
+     np.array([1, 0, 0, 0, 1]), np.array([6, 1, 6, 1])),
+    (np.array([1, 1]), 5, 7,
+     np.array([1, 0, 0, 0, 1]), np.array([3, 3]))
+])
+def test_GFpn_div(coeffs1: Union[Fpn, Fp],
+                  coeffs2: Union[Fpn, Fp], p, mod_coeffs, expected_coeffs):
+    """poly^{-1} = expected (mod mod_poly)"""
+    if isinstance(coeffs1, Fp):
+        el1 = coeffs1
+    else:
+        el1 = ElementInGFpn(coeffs1, p, np.poly1d(mod_coeffs))
+
+    if isinstance(coeffs2, Fp):
+        el2 = coeffs2
+    else:
+        el2 = ElementInGFpn(coeffs2, p, np.poly1d(mod_coeffs))
+
+    result = el1 / el2
+
+    assert (result.coeffs == expected_coeffs).all()

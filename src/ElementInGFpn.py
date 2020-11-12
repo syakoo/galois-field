@@ -3,7 +3,7 @@ from typing import Union
 
 import numpy as np
 
-from src.core import types, modulus
+from src.core import types, modulus, inverse
 
 
 class ElementInGFpn:
@@ -70,5 +70,24 @@ class ElementInGFpn:
             result = self.poly * other
         else:
             result = self.poly * other.poly
+
+        return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
+    def __truediv__(self, other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
+        if isinstance(other, types.Fp):
+            result = self.poly * inverse.inverse_el(other, self.p)
+        else:
+            result = self.poly * \
+                inverse.inverse_poly(other.poly, self.p, self.mod_poly)
+
+        return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
+    def __rtruediv__(self, other: Union[ElementInGFpn, types.Fp]) -> ElementInGFpn:
+        if isinstance(other, types.Fp):
+            result = other * \
+                inverse.inverse_poly(self.poly, self.p, self.mod_poly)
+        else:
+            result = other.poly * \
+                inverse.inverse_poly(self.poly, self.p, self.mod_poly)
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
