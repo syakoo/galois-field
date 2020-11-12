@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Union
 
 from src.core import types, modulus
 
@@ -24,3 +25,15 @@ class ElementInGFp:
 
     def __sub__(self, other: ElementInGFp) -> ElementInGFp:
         return ElementInGFp(self.value - other.value, self.p)
+
+    def __mul__(self, other: Union[ElementInGFp, int]) -> ElementInGFp:
+        if isinstance(other, int):
+            return ElementInGFp(self.value * other, self.p)
+
+        return ElementInGFp(self.value * other.value, self.p)
+
+    def __rmul__(self, other: Union[ElementInGFp, int]) -> ElementInGFp:
+        if isinstance(other, int):
+            return ElementInGFp(self.value * other, self.p)
+
+        return ElementInGFp(self.value * other.value, self.p)
