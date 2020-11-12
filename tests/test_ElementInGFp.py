@@ -11,6 +11,7 @@ from src.ElementInGFp import ElementInGFp
 def test_ElementInGFp_init(value, p, expected_value):
     el = ElementInGFp(value, p)
 
+    assert isinstance(el, ElementInGFp)
     assert el.value == expected_value
 
 
