@@ -15,3 +15,6 @@ class ElementInGFp:
     @property
     def p(self):
         return self.__p
+
+    def __str__(self) -> str:
+        return str(self.value)
