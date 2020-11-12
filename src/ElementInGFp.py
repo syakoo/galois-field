@@ -18,3 +18,6 @@ class ElementInGFp:
 
     def __str__(self) -> str:
         return str(self.value)
+
+    def __add__(self, other: ElementInGFp) -> ElementInGFp:
+        return ElementInGFp(self.value + other.value, self.p)
