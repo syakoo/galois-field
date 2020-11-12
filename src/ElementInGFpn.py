@@ -91,3 +91,10 @@ class ElementInGFpn:
                 inverse.inverse_poly(self.poly, self.p, self.mod_poly)
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
+    def __eq__(self, other: ElementInGFpn) -> bool:
+        if not isinstance(other, ElementInGFpn):
+            return False
+
+        return (self.poly == other.poly).all() \
+            and self.p == other.p and (self.mod_poly == other.mod_poly).all()

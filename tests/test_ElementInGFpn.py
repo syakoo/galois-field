@@ -117,3 +117,20 @@ def test_GFpn_div(coeffs1: Union[Fpn, Fp],
     result = el1 / el2
 
     assert (result.coeffs == expected_coeffs).all()
+
+
+@pytest.mark.parametrize("el1, el2, expected", [
+    (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])),
+     ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])), True),
+    (ElementInGFpn(np.array([1, 2]), 11, np.array([1, 1, 1])),
+     ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])), False),
+    (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])),
+     ElementInGFpn(np.array([1, 1]), 13, np.array([1, 1, 1])), False),
+    (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])),
+     ElementInGFpn(np.array([1, 1]), 11, np.array([1, 2, 1])), False),
+])
+def test_GFpn_equal(el1, el2, expected):
+    result = el1 == el2
+    print(result)
+
+    assert result == expected
