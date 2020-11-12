@@ -59,7 +59,7 @@ def test_GFpn_elm(coeffs, p, mod_coeffs):
     (2, 11),
     (3, 123456791)
 ])
-def test_GFpn_elm(integer, p):
+def test_GFp_elm(integer, p):
     gf = GF(p)
     result = gf.elm(integer)
 
