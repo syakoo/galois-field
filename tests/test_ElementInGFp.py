@@ -94,3 +94,15 @@ def test_GFpn_equal(el1, el2, expected):
     result = el1 == el2
 
     assert result == expected
+
+
+@pytest.mark.parametrize("el, expected_value", [
+    (ElementInGFp(1, 2), 1),
+    (ElementInGFp(-1, 7), 6),
+    (ElementInGFp(123456789, 123456791), 61728395),
+])
+def test_GFElementInGFp_inverse(el, expected_value):
+    """el^{-1} = expected (mod p)"""
+    result = el.inverse()
+
+    assert result.value == expected_value

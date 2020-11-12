@@ -17,6 +17,9 @@ class ElementInGFp:
     def p(self):
         return self.__p
 
+    def inverse(self):
+        return ElementInGFp(inverse.inverse_el(self.value, self.p), self.p)
+
     def __str__(self) -> str:
         return f'{str(self.value)} (mod {self.p})'
 
