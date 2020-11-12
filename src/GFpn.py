@@ -4,6 +4,7 @@ from typing import Union, List
 import numpy as np
 
 from src.core import types, modulus
+from src.ElementInGFpn import ElementInGFpn
 
 
 class GF:
@@ -38,3 +39,16 @@ class GF:
             return f'GF({self.p})'
 
         return f'GF({self.p}^{len(self.mod_coeffs) - 1})'
+
+    def elm(self,
+            int_or_coeffs: Union[int, List[int]]) -> Union[ElementInGFpn]:
+        if self.mod_poly is not None:
+            if isinstance(int_or_coeffs, list) \
+                    or isinstance(int_or_coeffs, types.Fpn):
+
+                return ElementInGFpn(np.array(int_or_coeffs), self.p, self.mod_poly)
+            else:
+                return ElementInGFpn(np.array([int_or_coeffs]), self.p, self.mod_poly)
+
+        if isinstance(int_or_coeffs, types.Fp):
+            return

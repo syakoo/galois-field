@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 
 from src.GFpn import GF
+from src.ElementInGFpn import ElementInGFpn
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
@@ -38,3 +39,15 @@ def test_GFpn_str(p, mod_coeffs, expected):
 def test_GFp_str(p, expected):
     gf = GF(p)
     assert str(gf) == expected
+
+
+@pytest.mark.parametrize('coeffs, p, mod_coeffs', [
+    (np.array([4, 3, 2, 1]), 5, np.array([1, 0, 1])),
+    (np.array([2, 1]), 11, np.array([1, 0, 1])),
+    (np.array([4, 3, 2, 1]), 123456791, np.array([1, 0, 1]))
+])
+def test_GFpn_elm(coeffs, p, mod_coeffs):
+    gf = GF(p, mod_coeffs)
+    result = gf.elm(coeffs)
+
+    assert isinstance(result, ElementInGFpn)
