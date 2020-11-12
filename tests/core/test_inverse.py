@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from src.core import inverse as inv
@@ -12,4 +13,16 @@ from src.core.types import Fp
 def test_inverse_el(el: Fp, p: int, expected: Fp):
     """el^{-1} = expected (mod p)"""
     result = inv.inverse_el(el, p)
+    assert result == expected
+
+
+@pytest.mark.parametrize("poly, p, mod_poly, expected", [
+    (np.poly1d([4]), 11, np.poly1d([1, 1, 1]), np.poly1d([3])),
+    (np.poly1d([1, 1]), 5, np.poly1d([1, 1, 1]), np.poly1d([4, 0])),
+    (np.poly1d([1, 1]), 7, np.poly1d([1, 0, 0, 0, 1]), np.poly1d([3, 4, 3, 4]))
+])
+def test_inverse_poly(poly, p, mod_poly, expected):
+    """poly^{-1} = expected (mod mod_poly)"""
+    result = inv.inverse_poly(poly, p, mod_poly)
+
     assert result == expected
