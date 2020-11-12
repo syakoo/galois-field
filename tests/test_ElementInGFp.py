@@ -66,3 +66,17 @@ def test_GFpn_mul(el1, el2, expected_value):
 
     assert isinstance(result, ElementInGFp)
     assert result.value == expected_value
+
+
+@pytest.mark.parametrize('el1, el2, expected_value', [
+    (ElementInGFp(4, 5), ElementInGFp(2, 5), 2),
+    (ElementInGFp(2, 11), ElementInGFp(8, 11), 3),
+    (ElementInGFp(-2, 123456791), ElementInGFp(123456789, 123456791), 1),
+    (ElementInGFp(4, 5), 2, 2),
+    (2, ElementInGFp(8, 11), 3),
+])
+def test_GFpn_div(el1, el2, expected_value):
+    result = el1 / el2
+
+    assert isinstance(result, ElementInGFp)
+    assert result.value == expected_value

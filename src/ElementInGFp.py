@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Union
 
-from src.core import types, modulus
+from src.core import types, modulus, inverse
 
 
 class ElementInGFp:
@@ -37,3 +37,21 @@ class ElementInGFp:
             return ElementInGFp(self.value * other, self.p)
 
         return ElementInGFp(self.value * other.value, self.p)
+
+    def __truediv__(self, other: Union[ElementInGFp, int]) -> ElementInGFp:
+        if isinstance(other, int):
+            other_value = other
+        else:
+            other_value = other.value
+
+        inv_value = inverse.inverse_el(other_value, self.p)
+        return ElementInGFp(self.value * inv_value, self.p)
+
+    def __rtruediv__(self, other: Union[ElementInGFp, int]) -> ElementInGFp:
+        if isinstance(other, int):
+            other_value = other
+        else:
+            other_value = other.value
+
+        inv_value = inverse.inverse_el(self.value, self.p)
+        return ElementInGFp(other_value * inv_value, self.p)
