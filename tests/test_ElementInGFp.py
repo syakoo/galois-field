@@ -20,7 +20,7 @@ def test_ElementInGFp_init(value, p, expected_value):
     (222, 11, '2 (mod 11)'),
     (-2, 123456791, '123456789 (mod 123456791)')
 ])
-def test_ElementInGFpn_str(value, p, expected):
+def test_GFElementInGFp_str(value, p, expected):
     result = ElementInGFp(value, p)
 
     assert str(result) == expected
@@ -31,7 +31,7 @@ def test_ElementInGFpn_str(value, p, expected):
     (111, 111, 11, 2),
     (-5, 3, 123456791, 123456789)
 ])
-def test_GFpn_add(value1, value2, p, expected_value):
+def test_GFElementInGFp_add(value1, value2, p, expected_value):
     el1 = ElementInGFp(value1, p)
     el2 = ElementInGFp(value2, p)
     result = el1 + el2
@@ -45,7 +45,7 @@ def test_GFpn_add(value1, value2, p, expected_value):
     (223, 1, 11, 2),
     (3, 5, 123456791, 123456789)
 ])
-def test_GFpn_sub(value1, value2, p, expected_value):
+def test_GFElementInGFp_sub(value1, value2, p, expected_value):
     el1 = ElementInGFp(value1, p)
     el2 = ElementInGFp(value2, p)
     result = el1 - el2
@@ -61,7 +61,7 @@ def test_GFpn_sub(value1, value2, p, expected_value):
     (ElementInGFp(2, 5), 2, 4),
     (-111, ElementInGFp(-2, 11), 2),
 ])
-def test_GFpn_mul(el1, el2, expected_value):
+def test_GFElementInGFp_mul(el1, el2, expected_value):
     result = el1 * el2
 
     assert isinstance(result, ElementInGFp)
@@ -75,7 +75,7 @@ def test_GFpn_mul(el1, el2, expected_value):
     (ElementInGFp(4, 5), 2, 2),
     (2, ElementInGFp(8, 11), 3),
 ])
-def test_GFpn_div(el1, el2, expected_value):
+def test_GFElementInGFp_div(el1, el2, expected_value):
     result = el1 / el2
 
     assert isinstance(result, ElementInGFp)
@@ -90,7 +90,7 @@ def test_GFpn_div(el1, el2, expected_value):
     (ElementInGFp(2, 5), ElementInGFp(2, 8), False),
     (2, ElementInGFp(2, 11), False),
 ])
-def test_GFpn_equal(el1, el2, expected):
+def test_GFElementInGFp_equal(el1, el2, expected):
     result = el1 == el2
 
     assert result == expected
