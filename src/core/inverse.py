@@ -23,8 +23,5 @@ def inverse_poly(poly: np.poly1d, p: int, mod_poly: np.poly1d) -> np.poly1d:
         inverse_of_el = inverse_el(poly.coeffs[0], p)
         return np.poly1d(np.array([inverse_of_el]))
 
-    ans = 1
-    for _ in range(p**(len(mod_poly.coeffs)-1)-2):
-        ans = modulus.modulus_poly(ans * poly, mod_poly, p)
-
-    return ans
+    return modulus.modulus_pow_poly(poly,
+                                    p**(len(mod_poly.coeffs)-1)-2, p, mod_poly)
