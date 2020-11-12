@@ -65,7 +65,21 @@ def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
 def modulus_pow_poly(poly: np.poly1d, e: int,
                      p: int, mod_poly: np.poly1d) -> np.poly1d:
     ans = 1
-    for _ in range(e):
-        ans = modulus_poly(ans * poly, mod_poly, p)
+    cur_exp = 1
+    stack_polys = [poly]
+
+    while cur_exp*2 < e:
+        cur_exp *= 2
+        cur_poly = modulus_poly(stack_polys[-1]*stack_polys[-1], mod_poly, p)
+        stack_polys.append(cur_poly)
+
+    while 0 < e:
+        e_times = e // cur_exp
+        for _ in range(e_times):
+            ans = modulus_poly(ans*stack_polys[-1], mod_poly, p)
+
+        e -= e_times * cur_exp
+        cur_exp //= 2
+        stack_polys = stack_polys[:-1]
 
     return ans
