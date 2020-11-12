@@ -3,6 +3,7 @@ import pytest
 
 from src.GFpn import GF
 from src.ElementInGFpn import ElementInGFpn
+from src.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
@@ -51,3 +52,15 @@ def test_GFpn_elm(coeffs, p, mod_coeffs):
     result = gf.elm(coeffs)
 
     assert isinstance(result, ElementInGFpn)
+
+
+@pytest.mark.parametrize('integer, p', [
+    (1, 5),
+    (2, 11),
+    (3, 123456791)
+])
+def test_GFpn_elm(integer, p):
+    gf = GF(p)
+    result = gf.elm(integer)
+
+    assert isinstance(result, ElementInGFp)

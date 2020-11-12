@@ -5,6 +5,7 @@ import numpy as np
 
 from src.core import types, modulus
 from src.ElementInGFpn import ElementInGFpn
+from src.ElementInGFp import ElementInGFp
 
 
 class GF:
@@ -40,15 +41,17 @@ class GF:
 
         return f'GF({self.p}^{len(self.mod_coeffs) - 1})'
 
-    def elm(self,
-            int_or_coeffs: Union[int, List[int]]) -> Union[ElementInGFpn]:
+    def elm(self, int_or_coeffs: Union[int, List[int]])\
+            -> Union[ElementInGFpn, ElementInGFp]:
         if self.mod_poly is not None:
             if isinstance(int_or_coeffs, list) \
                     or isinstance(int_or_coeffs, types.Fpn):
 
-                return ElementInGFpn(np.array(int_or_coeffs), self.p, self.mod_poly)
+                return ElementInGFpn(np.array(int_or_coeffs),
+                                     self.p, self.mod_poly)
             else:
-                return ElementInGFpn(np.array([int_or_coeffs]), self.p, self.mod_poly)
+                return ElementInGFpn(np.array([int_or_coeffs]),
+                                     self.p, self.mod_poly)
 
-        if isinstance(int_or_coeffs, types.Fp):
-            return
+        if isinstance(int_or_coeffs, int):
+            return ElementInGFp(int_or_coeffs, self.p)
