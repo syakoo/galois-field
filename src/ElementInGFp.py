@@ -21,3 +21,6 @@ class ElementInGFp:
 
     def __add__(self, other: ElementInGFp) -> ElementInGFp:
         return ElementInGFp(self.value + other.value, self.p)
+
+    def __sub__(self, other: ElementInGFp) -> ElementInGFp:
+        return ElementInGFp(self.value - other.value, self.p)
