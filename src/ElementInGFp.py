@@ -55,3 +55,9 @@ class ElementInGFp:
 
         inv_value = inverse.inverse_el(self.value, self.p)
         return ElementInGFp(other_value * inv_value, self.p)
+
+    def __eq__(self, other: Union[ElementInGFp, int]) -> bool:
+        if not isinstance(other, ElementInGFp):
+            return False
+
+        return self.value == other.value and self.p == other.p
