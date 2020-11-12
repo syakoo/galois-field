@@ -47,3 +47,14 @@ def test_modulus_poly(poly1: np.poly1d,
     result = mod.modulus_poly(poly1, poly2, p)
 
     assert (result == expected).all()
+
+
+@pytest.mark.parametrize('poly, e, p, mod_poly, expected', [
+    (np.poly1d([1, 1]), 23, 5, np.poly1d([1, 1, 1]), np.poly1d([4, 0])),
+    (np.poly1d([1, 1]), 2399, 7, np.poly1d(
+        [1, 0, 0, 0, 1]), np.poly1d([3, 4, 3, 4]))
+])
+def test_modulus_pow_poly(poly, e, p, mod_poly, expected):
+    result = mod.modulus_pow_poly(poly, e, p, mod_poly)
+
+    assert (result == expected).all()

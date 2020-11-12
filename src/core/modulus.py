@@ -60,3 +60,12 @@ def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
     coeffs = modulus_coeffs(r.coeffs, p)
 
     return np.poly1d(coeffs)
+
+
+def modulus_pow_poly(poly: np.poly1d, e: int,
+                     p: int, mod_poly: np.poly1d) -> np.poly1d:
+    ans = 1
+    for _ in range(e):
+        ans = modulus_poly(ans * poly, mod_poly, p)
+
+    return ans
