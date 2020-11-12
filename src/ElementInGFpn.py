@@ -27,6 +27,10 @@ class ElementInGFpn:
     def coeffs(self) -> types.Fpn:
         return self.__poly.coeffs
 
+    def inverse(self) -> ElementInGFpn:
+        inv_poly = inverse.inverse_poly(self.poly, self.p, self.mod_poly)
+        return ElementInGFpn(inv_poly.coeffs, self.p, self.mod_poly)
+
     def __str__(self):
         result = []
         for i, coeff in enumerate(self.coeffs[::-1]):

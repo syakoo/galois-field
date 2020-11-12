@@ -134,3 +134,16 @@ def test_GFpn_equal(el1, el2, expected):
     print(result)
 
     assert result == expected
+
+
+@pytest.mark.parametrize("el, expected_coeffs", [
+    (ElementInGFpn(np.array([4]), 11, np.poly1d([1, 1, 1])), np.array([3])),
+    (ElementInGFpn(np.array([1, 1]), 5,
+                   np.poly1d([1, 1, 1])), np.array([4, 0])),
+    (ElementInGFpn(np.array([1, 1]), 7,
+                   np.poly1d([1, 0, 0, 0, 1])), np.array([3, 4, 3, 4]))
+])
+def test_GFpn_inverse(el, expected_coeffs):
+    result = el.inverse()
+
+    assert (result.coeffs == expected_coeffs).all()
