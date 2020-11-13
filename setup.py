@@ -9,14 +9,14 @@ def _requires_from_file(filename):
 
 
 setuptools.setup(
-    name="galois_field_pn",
+    name="galois_field",
     version="0.1.0",
     author="Sakoda Takuya",
     author_email="sakodata0318@gmail.com",
-    description="galois_field_pn",
+    description="Galois Field: GF(p^n)",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/syakoo/galois_field_pn",
+    url="https://github.com/syakoo/galois_field",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -24,7 +24,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     entry_points={
-        'console_scripts': ['galois_field_pn = src.GF_pn:GF_pn']
+        'console_scripts': ['galois_field = src.GFpn:GFpn']
     },
     install_requires=_requires_from_file('requirements.txt'),
     setup_requires=["pytest-runner"],
