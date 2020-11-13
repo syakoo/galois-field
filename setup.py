@@ -10,7 +10,7 @@ def _requires_from_file(filename):
 
 setuptools.setup(
     name="galois_field",
-    version="0.1.0",
+    version="1.0.0",
     author="Sakoda Takuya",
     author_email="sakodata0318@gmail.com",
     description="Galois Field: GF(p^n)",
