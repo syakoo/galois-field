@@ -98,7 +98,7 @@ def test_GFElementInGFp_div(el1, el2, expected_value):
     (ElementInGFp(2, 11), 5, 10),
     (ElementInGFp(-2, 123456791), 123456789, 61728395),
 ])
-def test_GFElementInGFp_div(el1, exp, expected_value):
+def test_GFElementInGFp_pow(el1, exp, expected_value):
     result = el1 ** exp
 
     assert isinstance(result, ElementInGFp)
