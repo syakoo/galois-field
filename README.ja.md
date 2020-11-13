@@ -45,27 +45,27 @@ el2.inverse() # 6 (mod 11)
 ```
 
 #### GF(5^4)
-モニックな既約多項式を用います。(今回は x^4 + 1) 
+モニックな既約多項式を用います。(今回は x^4 + 2) 
 
 ```python
 from galois_field import GF
 
 # GF(5^4) の作成
-gf = GF(5, [1, 0, 0, 0, 1])
+gf = GF(5, [1, 0, 0, 0, 2])
 
 # 元を作成
 el1 = gf.elm([1, 2])  # 1x + 2
-el2 = gf.elm([1, 2, 3, 4, 5]) # 2x^3 + 3x^2 + 4x + 4
+el2 = gf.elm([1, 2, 3, 4, 5]) # 2x^3 + 3x^2 + 4x + 3
 
 # 演算
-el1 + el2 # 2x^3 + 3x^2 + 1
-el1 - el2 # 3x^3 + 2x^2 + 2x + 3
-el1 * el2 # 2x^3 + 2x + 1
-el1 / el2 # 2x^2 + 2x + 3
+el1 + el2 # 2x^3 + 3x^2
+el1 - el2 # 3x^3 + 2x^2 + 2x + 4
+el1 * el2 # 2x^3 + 1x + 2
+el1 / el2 # 3x^3 + 4x^2
 
 # 逆元
-el1.inverse() # 2x^3 + 1x^2 + 3x + 4
-el2.inverse() # 4x^3 + 2x^2 + 3x + 1
+el1.inverse() # 3x^3 + 4x^2 + 2x + 1
+el2.inverse() # 1x^3 + 1x^2 + 2x + 1
 ```
 
 ### 注意点
