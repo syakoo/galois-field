@@ -51,27 +51,27 @@ el2.inverse() # 6 (mod 11)
 
 #### GF(5^4)
 
-We use a monic irreducible polynomial. (in this case, x^4 + 1) 
+We use a monic irreducible polynomial. (in this case, x^4 + 2) 
 
 ```python
 from galois_field import GF
 
 # Generating the field GF(5^4)
-gf = GF(5, [1, 0, 0, 0, 1])
+gf = GF(5, [1, 0, 0, 0, 2])
 
 # Generating an element in GF(5^4)
 el1 = gf.elm([1, 2])  # 1x + 2
-el2 = gf.elm([1, 2, 3, 4, 5]) # 2x^3 + 3x^2 + 4x + 4
+el2 = gf.elm([1, 2, 3, 4, 5]) # 2x^3 + 3x^2 + 4x + 3
 
 # Arithmetics
-el1 + el2 # 2x^3 + 3x^2 + 1
-el1 - el2 # 3x^3 + 2x^2 + 2x + 3
-el1 * el2 # 2x^3 + 2x + 1
-el1 / el2 # 2x^2 + 2x + 3
+el1 + el2 # 2x^3 + 3x^2
+el1 - el2 # 3x^3 + 2x^2 + 2x + 4
+el1 * el2 # 2x^3 + 1x + 2
+el1 / el2 # 3x^3 + 4x^2
 
 # The Inverse of elements.
-el1.inverse() # 2x^3 + 1x^2 + 3x + 4
-el2.inverse() # 4x^3 + 2x^2 + 3x + 1
+el1.inverse() # 3x^3 + 4x^2 + 2x + 1
+el2.inverse() # 1x^3 + 1x^2 + 2x + 1
 ```
 
 ### Cautions
