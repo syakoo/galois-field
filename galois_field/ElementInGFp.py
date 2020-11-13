@@ -36,6 +36,9 @@ class ElementInGFp:
     def __str__(self) -> str:
         return f'{str(self.value)} (mod {self.p})'
 
+    def __repr__(self) -> str:
+        return f'ElementInGFp({self.value}, {self.p})'
+
     def __add__(self, other: ElementInGFp) -> ElementInGFp:
         return ElementInGFp(self.value + other.value, self.p)
 
