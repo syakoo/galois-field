@@ -1,1 +1,1 @@
-# Galois Field Fp^n for Python🐍
+# Galois Field GF(p^n) for Python🐍
