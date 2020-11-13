@@ -1,1 +1,3 @@
-from galois_field.core import modulus, inverse, types
+from galois_field.GFpn import GF
+from galois_field.ElementInGFp import ElementInGFp
+from galois_field.ElementInGFpn import ElementInGFpn
