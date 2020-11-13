@@ -45,7 +45,7 @@ el2.inverse() # 6 (mod 11)
 ```
 
 #### GF(5^4)
-モニックな規約多項式を用います。(今回は x^4 + 1) 
+モニックな既約多項式を用います。(今回は x^4 + 1) 
 
 ```python
 from galois_field import GF
