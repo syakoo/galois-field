@@ -53,7 +53,7 @@ class GF:
         if self.__mod_poly is None:
             return f'GF({self.p})'
 
-        return f'GF({self.p}^{len(self.mod_coeffs) - 1})'
+        return f'GF({self.p}^{len(self.mod_coeffs)})'
 
     def elm(self, int_or_coeffs: Union[int, List[int]])\
             -> Union[ElementInGFpn, ElementInGFp]:
