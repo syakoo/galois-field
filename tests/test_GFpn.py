@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
 
-from src.GFpn import GF
-from src.ElementInGFpn import ElementInGFpn
-from src.ElementInGFp import ElementInGFp
+from galois_field.GFpn import GF
+from galois_field.ElementInGFpn import ElementInGFpn
+from galois_field.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
