@@ -75,6 +75,11 @@ class ElementInGFp:
         inv_value = inverse.inverse_el(self.value, self.p)
         return ElementInGFp(other_value * inv_value, self.p)
 
+    def __pow__(self, other: int) -> ElementInGFp:
+        new_value = pow(self.value, other, self.p)
+
+        return ElementInGFp(new_value, self.p)
+
     def __eq__(self, other: Union[ElementInGFp, int]) -> bool:
         if not isinstance(other, ElementInGFp):
             return False

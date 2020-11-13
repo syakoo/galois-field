@@ -93,6 +93,18 @@ def test_GFElementInGFp_div(el1, el2, expected_value):
     assert result.value == expected_value
 
 
+@pytest.mark.parametrize('el1, exp, expected_value', [
+    (ElementInGFp(4, 7), 5, 2),
+    (ElementInGFp(2, 11), 5, 10),
+    (ElementInGFp(-2, 123456791), 123456789, 61728395),
+])
+def test_GFElementInGFp_pow(el1, exp, expected_value):
+    result = el1 ** exp
+
+    assert isinstance(result, ElementInGFp)
+    assert result.value == expected_value
+
+
 @pytest.mark.parametrize('el1, el2, expected', [
     (ElementInGFp(4, 5), ElementInGFp(4, 5), True),
     (ElementInGFp(2, 11), ElementInGFp(8, 11), False),
