@@ -131,6 +131,19 @@ def test_GFpn_div(coeffs1: Union[Fpn, Fp],
     assert (result.coeffs == expected_coeffs).all()
 
 
+@pytest.mark.parametrize("el, exp, expected_coeffs", [
+    (ElementInGFpn(np.array([4]), 11, np.poly1d([1, 0, 1])), 3, np.array([9])),
+    (ElementInGFpn(np.array([1, 1]), 5, np.poly1d(
+        [1, 0, 2])), 5, np.array([4, 1])),
+    (ElementInGFpn(np.array([1, 1]), 7,
+                   np.poly1d([1, 0, 0, 1, 1])), 2400, np.array([1]))
+])
+def test_GFpn_pow(el, exp, expected_coeffs):
+    result = el ** exp
+
+    assert (result.coeffs == expected_coeffs).all()
+
+
 @pytest.mark.parametrize("el1, el2, expected", [
     (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])),
      ElementInGFpn(np.array([1, 1]), 11, np.array([1, 1, 1])), True),

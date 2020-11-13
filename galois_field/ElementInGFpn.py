@@ -111,6 +111,12 @@ class ElementInGFpn:
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
+    def __pow__(self, other: int) -> ElementInGFpn:
+        result = modulus.modulus_pow_poly(
+            self.poly, other, self.p, self.mod_poly)
+
+        return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
     def __eq__(self, other: ElementInGFpn) -> bool:
         if not isinstance(other, ElementInGFpn):
             return False
