@@ -31,6 +31,18 @@ def test_ElementInGFpn_str(coeffs, p, mod_coeffs, expected):
     assert str(result) == expected
 
 
+@pytest.mark.parametrize('coeffs, p, mod_coeffs, expected', [
+    (np.array([4, 3, 2, 1]), 5, np.array([1, 0, 2]),
+     'ElementInGFpn([4, 0], 5, [1, 0, 2])'),
+    (np.array([2, 1]), 11, np.array([1, 0, 1]),
+     'ElementInGFpn([2, 1], 11, [1, 0, 1])'),
+])
+def test_ElementInGFpn_repr(coeffs, p, mod_coeffs, expected):
+    result = ElementInGFpn(coeffs, p, np.poly1d(mod_coeffs))
+
+    assert repr(result) == expected
+
+
 @pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
     (np.array([1, 2, 3, 4]), np.array([1, 2, 3, 4]), 5,
      np.array([1, 0, 0, 0, 1]), np.array([2, 4, 1, 3])),

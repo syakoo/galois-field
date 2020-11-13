@@ -59,6 +59,11 @@ class ElementInGFpn:
 
         return "".join(result[::-1])
 
+    def __repr__(self) -> str:
+        def c2str(array): return str(list(array))
+        mod_str = c2str(self.mod_poly.coeffs)
+        return f'ElementInGFpn({c2str(self.coeffs)}, {self.p}, {mod_str})'
+
     def __add__(self, other: ElementInGFpn) -> ElementInGFpn:
         result = self.poly + other.poly
 
