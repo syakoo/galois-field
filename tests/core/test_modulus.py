@@ -4,7 +4,7 @@ import numpy as np
 from nptyping import NDArray
 import pytest
 
-from src.core import modulus as mod, types
+from galois_field.core import modulus as mod, types
 
 
 @pytest.mark.parametrize('el, p, expected', [

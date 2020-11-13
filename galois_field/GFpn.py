@@ -4,9 +4,9 @@ from typing import Any, Union, List
 import numpy as np
 from nptyping import NDArray
 
-from src.core import types, modulus
-from src.ElementInGFpn import ElementInGFpn
-from src.ElementInGFp import ElementInGFp
+from .core import types, modulus
+from .ElementInGFpn import ElementInGFpn
+from .ElementInGFp import ElementInGFp
 
 
 class GF:

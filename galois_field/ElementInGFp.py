@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Union
 
-from src.core import types, modulus, inverse
+from .core import types, modulus, inverse
 
 
 class ElementInGFp:

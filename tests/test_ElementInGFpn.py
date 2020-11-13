@@ -3,8 +3,8 @@ from typing import Union
 import numpy as np
 import pytest
 
-from src.ElementInGFpn import ElementInGFpn
-from src.core.types import Fp, Fpn
+from galois_field.ElementInGFpn import ElementInGFpn
+from galois_field.core.types import Fp, Fpn
 
 
 @pytest.mark.parametrize('coeffs, p, mod_coeffs, expected_coeffs', [

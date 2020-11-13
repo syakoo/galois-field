@@ -4,7 +4,7 @@ from typing import Any, Union
 import numpy as np
 from nptyping import NDArray
 
-from src.core import types, modulus, inverse
+from .core import types, modulus, inverse
 
 
 class ElementInGFpn:

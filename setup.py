@@ -24,7 +24,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     entry_points={
-        'console_scripts': ['galois_field = src.GFpn:GFpn']
+        'console_scripts': ['galois_field = galois_field.GFpn:GFpn']
     },
     install_requires=_requires_from_file('requirements.txt'),
     setup_requires=["pytest-runner"],

@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from src.core import inverse as inv
-from src.core.types import Fp
+from galois_field.core import inverse as inv
+from galois_field.core.types import Fp
 
 
 @pytest.mark.parametrize("el, p, expected", [
