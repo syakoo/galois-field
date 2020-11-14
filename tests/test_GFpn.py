@@ -6,8 +6,8 @@ from galois_field.ElementInGFpn import ElementInGFpn
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
-    (5, np.array([1, 2, 3]), np.array([1, 2, 3])),
-    (2, np.array([1, 2, 3]), np.array([1, 0, 1]))
+    (5, np.array([1, 0, 2]), np.array([1, 0, 2])),
+    (2, np.array([1, 1, 1]), np.array([1, 1, 1]))
 ])
 def test_GFpn_init(p, mod_coeffs, expected_coeffs):
     gf = GFpn(p, mod_coeffs)
@@ -16,8 +16,8 @@ def test_GFpn_init(p, mod_coeffs, expected_coeffs):
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected', [
-    (5, np.array([1, 2, 3]), 'GF(5^3)'),
-    (2, np.array([1, 2, 3, 4, 5]), 'GF(2^5)')
+    (5, np.array([1, 0, 2]), 'GF(5^3)'),
+    (2, np.array([1, 0, 0, 1, 1]), 'GF(2^5)')
 ])
 def test_GFpn_str(p, mod_coeffs, expected):
     gf = GFpn(p, mod_coeffs)
@@ -25,9 +25,9 @@ def test_GFpn_str(p, mod_coeffs, expected):
 
 
 @pytest.mark.parametrize('coeffs, p, mod_coeffs', [
-    (np.array([4, 3, 2, 1]), 5, np.array([1, 0, 1])),
-    (np.array([2, 1]), 11, np.array([1, 0, 1])),
-    (np.array([4, 3, 2, 1]), 123456791, np.array([1, 0, 1]))
+    (np.array([1, 0, 1, 1]), 5, np.array([1, 0, 1])),
+    (np.array([1, 0, 1]), 11, np.array([1, 0, 1])),
+    (np.array([1, 0, 0, 2]), 7, np.array([1, 0, 1]))
 ])
 def test_GFpn_elm(coeffs, p, mod_coeffs):
     gf = GFpn(p, mod_coeffs)

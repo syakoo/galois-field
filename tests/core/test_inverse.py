@@ -17,9 +17,9 @@ def test_inverse_el(el: Fp, p: int, expected: Fp):
 
 
 @pytest.mark.parametrize("poly, p, mod_poly, expected", [
-    (np.poly1d([4]), 11, np.poly1d([1, 1, 1]), np.poly1d([3])),
-    (np.poly1d([1, 1]), 5, np.poly1d([1, 1, 1]), np.poly1d([4, 0])),
-    (np.poly1d([1, 1]), 7, np.poly1d([1, 0, 0, 0, 1]), np.poly1d([3, 4, 3, 4]))
+    (np.poly1d([4]), 11, np.poly1d([1, 0, 1]), np.poly1d([3])),
+    (np.poly1d([1, 1]), 5, np.poly1d([1, 0, 2]), np.poly1d([3, 2])),
+    (np.poly1d([1, 1]), 7, np.poly1d([1, 0, 0, 1, 1]), np.poly1d([6, 1, 6, 0]))
 ])
 def test_inverse_poly(poly, p, mod_poly, expected):
     """poly^{-1} = expected (mod mod_poly)"""

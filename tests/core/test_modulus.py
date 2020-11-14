@@ -36,10 +36,9 @@ def test_modulus_coeffs(coeffs: Union[types.Fpn, NDArray[Any, float]],
 
 
 @pytest.mark.parametrize('poly1, poly2, p, expected', [
-    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 0, 1]), 5, np.poly1d([3, 3])),
+    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 0, 2]), 5, np.poly1d([4, 0])),
     (np.poly1d([2, 1]), np.poly1d([1, 0, 1]), 11, np.poly1d([2, 1])),
-    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 0, 1]),
-     123456791, np.poly1d([123456789, 123456789]))
+    (np.poly1d([4, 3, 2, 1]), np.poly1d([1, 1, 1]), 2, np.poly1d([1, 0]))
 ])
 def test_modulus_poly(poly1: np.poly1d,
                       poly2: np.poly1d, p: int, expected: np.poly1d):
@@ -50,9 +49,9 @@ def test_modulus_poly(poly1: np.poly1d,
 
 
 @pytest.mark.parametrize('poly, e, p, mod_poly, expected', [
-    (np.poly1d([1, 1]), 23, 5, np.poly1d([1, 1, 1]), np.poly1d([4, 0])),
-    (np.poly1d([1, 1]), 2399, 7, np.poly1d(
-        [1, 0, 0, 0, 1]), np.poly1d([3, 4, 3, 4]))
+    (np.poly1d([1, 1]), 23, 5, np.poly1d([1, 0, 2]), np.poly1d([3, 2])),
+    (np.poly1d([1, 1]), 2399, 7,
+     np.poly1d([1, 0, 0, 1, 1]), np.poly1d([6, 1, 6, 0]))
 ])
 def test_modulus_pow_poly(poly, e, p, mod_poly, expected):
     result = mod.modulus_pow_poly(poly, e, p, mod_poly)

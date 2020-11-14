@@ -122,4 +122,6 @@ class ElementInGFpn:
             return False
 
         return (self.poly == other.poly).all() \
-            and self.p == other.p and (self.mod_poly == other.mod_poly).all()
+            and self.p == other.p \
+            and (len(self.mod_poly) == len(other.mod_poly)) \
+            and (self.mod_poly == other.mod_poly).all()
