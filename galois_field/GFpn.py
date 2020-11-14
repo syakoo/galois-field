@@ -6,30 +6,22 @@ from nptyping import NDArray
 
 from .core import types, modulus
 from .ElementInGFpn import ElementInGFpn
-from .ElementInGFp import ElementInGFp
 
 
-class GF:
+class GFpn:
     def __init__(self, p: int,
-                 mod_coeffs: Union[List[int], NDArray[Any, int], None] = None):
+                 mod_coeffs: Union[List[int], NDArray[Any, int]]):
         """Galois Field: GF(p^n).
 
         Args:
             p (int): A prime number.
-            mod_coeffs (Union[List[int], NDArray[Any, int], None], optional):
+            mod_coeffs (Union[List[int], NDArray[Any, int]]):
                 Coefficients of a monic irreducible polynomial.
-                If you want to use GF(p),
-                you do not need to put anything in this arg.
-                Defaults to None.
         """
         self.__p = p
 
-        if mod_coeffs is not None:
-            modulus_mod_coeffs = modulus.modulus_coeffs(
-                np.array(mod_coeffs), p)
-            self.__mod_poly = np.poly1d(modulus_mod_coeffs)
-        else:
-            self.__mod_poly = None
+        modulus_mod_coeffs = modulus.modulus_coeffs(np.array(mod_coeffs), p)
+        self.__mod_poly = np.poly1d(modulus_mod_coeffs)
 
     @property
     def p(self) -> int:
@@ -37,10 +29,8 @@ class GF:
         return self.__p
 
     @property
-    def mod_coeffs(self) -> Union[types.Fpn, None]:
+    def mod_coeffs(self) -> types.Fpn:
         """Coefficients of the monic irreducible polynomial. Read-only."""
-        if self.__mod_poly is None:
-            return None
 
         return self.__mod_poly.coeffs
 
@@ -50,28 +40,12 @@ class GF:
         return self.__mod_poly
 
     def __str__(self) -> str:
-        if self.__mod_poly is None:
-            return f'GF({self.p})'
-
         return f'GF({self.p}^{len(self.mod_coeffs)})'
 
-    def elm(self, int_or_coeffs: Union[int, List[int]])\
-            -> Union[ElementInGFpn, ElementInGFp]:
-        """Generate the Element from the input value in GF.
+    def elm(self, coeffs: Union[NDArray[Any, int], List[int]]) -> ElementInGFpn:
+        """Generate the Element from coeffs in GF(p^n).
 
         Returns:
-            Union[ElementInGFpn, ElementInGFp]]:
-                The Element in GF(p) or GF(p^n).
+            ElementInGFpn: The element in GF(p^n).
         """
-        if self.mod_poly is not None:
-            if isinstance(int_or_coeffs, list) \
-                    or isinstance(int_or_coeffs, types.Fpn):
-
-                return ElementInGFpn(np.array(int_or_coeffs),
-                                     self.p, self.mod_poly)
-            else:
-                return ElementInGFpn(np.array([int_or_coeffs]),
-                                     self.p, self.mod_poly)
-
-        if isinstance(int_or_coeffs, int):
-            return ElementInGFp(int_or_coeffs, self.p)
+        return ElementInGFpn(np.array(coeffs), self.p, self.mod_poly)
