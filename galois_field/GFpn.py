@@ -9,15 +9,29 @@ from .ElementInGFpn import ElementInGFpn
 
 
 class GFpn:
+    """Galois Field: GF(p^n).
+
+    Args:
+        p (int): A prime number.
+        mod_coeffs (Union[List[int], NDArray[Any, int]]):
+            Coefficients of a monic irreducible polynomial.
+
+    Examples:
+        >>> from galois_field import GFpn
+
+        In this case, p = 5, a monic irreducible polynomial = x^4 + 2.
+        >>> gf = GF(5, [1, 0, 0, 0, 2])
+
+        Generate the element in GF(5^4).
+        >>> gf.elm([1, 2]) # 1x + 2
+        ElementInGFpn([1, 2], 5, [1, 0, 0, 0, 2])
+
+        >>> gf.elm([1, 2, 3, 4, 5]) # 2x^3 + 3x^2 + 4x + 3
+        ElementInGFpn([2, 3, 4, 3], 5, [1, 0, 0, 0, 2])
+    """
+
     def __init__(self, p: int,
                  mod_coeffs: Union[List[int], NDArray[Any, int]]):
-        """Galois Field: GF(p^n).
-
-        Args:
-            p (int): A prime number.
-            mod_coeffs (Union[List[int], NDArray[Any, int]]):
-                Coefficients of a monic irreducible polynomial.
-        """
         self.__p = p
 
         modulus_mod_coeffs = modulus.modulus_coeffs(np.array(mod_coeffs), p)
