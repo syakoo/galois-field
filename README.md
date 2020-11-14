@@ -1,6 +1,6 @@
 # Galois Field GF(p^n) for 🐍
 
-This is a library for using Galois Field GF(p^n) in Python, 
+This is a library for using Galois Field GF(p^n) in Python,
 which generates GF(p) and GF(p^n) and allows you to multiply, add, subtract, and divide elements.
 [For Japanease](https://github.com/syakoo/galois-field/blob/master/README.ja.md)
 
@@ -26,13 +26,14 @@ $ pip install git+https://github.com/syakoo/galois-field
 ```
 
 ### Examples
+
 #### GF(11)
 
 ```python
-from galois_field import GF
+from galois_field import GFp
 
 # Generating the field GF(11)
-gf = GF(11)
+gf = GFp(11)
 
 # Generating an element in GF(11)
 el1 = gf.elm(5)  # 5 (mod 11)
@@ -51,13 +52,13 @@ el2.inverse() # 6 (mod 11)
 
 #### GF(5^4)
 
-We use a monic irreducible polynomial. (in this case, x^4 + 2) 
+We use a monic irreducible polynomial. (in this case, x^4 + 2)
 
 ```python
-from galois_field import GF
+from galois_field import GFpn
 
 # Generating the field GF(5^4)
-gf = GF(5, [1, 0, 0, 0, 2])
+gf = GFpn(5, [1, 0, 0, 0, 2])
 
 # Generating an element in GF(5^4)
 el1 = gf.elm([1, 2])  # 1x + 2
@@ -113,4 +114,5 @@ $ flake8 galois_field
 ```
 
 ## LICENSE
+
 MIT LICENSE
