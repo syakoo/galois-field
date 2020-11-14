@@ -45,6 +45,20 @@ def modulus_coeffs(coeffs: Union[Fpn, NDArray[Any, float]], p: int) -> Fpn:
     return np.array([modulus_el(el, p) for el in coeffs], int)
 
 
+def modulus_poly_over_fp(poly: np.poly1d, p: int) -> np.poly1d:
+    """Compute a polynomial modulo Fp.
+
+    Args:
+        poly (np.poly1d): An Element in Fpn.
+        p (int): A prime number.
+
+    Returns:
+        np.poly1d: A polynomial modulo Fp.
+    """
+    coeffs = modulus_coeffs(poly.coeffs, p)
+    return np.poly1d(coeffs)
+
+
 def modulus_poly(poly1: np.poly1d, poly2: np.poly1d, p: int) -> np.poly1d:
     """Compute a polynomial modulo poly2.
 
