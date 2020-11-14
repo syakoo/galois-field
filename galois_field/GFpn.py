@@ -20,7 +20,7 @@ class GFpn:
         >>> from galois_field import GFpn
 
         In this case, p = 5, a monic irreducible polynomial = x^4 + 2.
-        >>> gf = GF(5, [1, 0, 0, 0, 2])
+        >>> gf = GFpn(5, [1, 0, 0, 0, 2])
 
         Generate the element in GF(5^4).
         >>> gf.elm([1, 2]) # 1x + 2
