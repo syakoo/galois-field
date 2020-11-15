@@ -119,6 +119,17 @@ def test_GFElementInGFp_equal(el1, el2, expected):
     assert result == expected
 
 
+@pytest.mark.parametrize('value, p, expected', [
+    (1, 5, 1),
+    (222, 11, 2),
+    (-2, 123456791, 123456789)
+])
+def test_ElementInGFp_int(value, p, expected):
+    el = ElementInGFp(value, p)
+
+    assert int(el) == expected
+
+
 @pytest.mark.parametrize("el, expected_value", [
     (ElementInGFp(1, 2), 1),
     (ElementInGFp(-1, 7), 6),

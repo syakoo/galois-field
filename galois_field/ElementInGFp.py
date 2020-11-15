@@ -80,6 +80,9 @@ class ElementInGFp:
 
         return ElementInGFp(new_value, self.p)
 
+    def __int__(self) -> int:
+        return int(self.value)
+
     def __eq__(self, other: Union[ElementInGFp, int]) -> bool:
         if not isinstance(other, ElementInGFp):
             return False
