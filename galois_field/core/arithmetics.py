@@ -1,7 +1,15 @@
 import collections
 
 
-def prime_factorize(n):
+def prime_factorize(n: int) -> dict:
+    """Prime factorize n.
+
+    Args:
+        n (int): an natural number.
+
+    Returns:
+        dict: Prime factorization of n.
+    """
     a = []
     while n % 2 == 0:
         a.append(2)
