@@ -10,6 +10,12 @@ def test_GFp_init(p):
     assert gf.p == p
 
 
+@pytest.mark.parametrize('p', [(6), (4), (123456789)])
+def test_GFp_raises(p):
+    with pytest.raises(ValueError):
+        GFp(p)
+
+
 @pytest.mark.parametrize('p, expected', [
     (5, 'GF(5)'),
     (2, 'GF(2)')

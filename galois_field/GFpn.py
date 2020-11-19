@@ -4,7 +4,7 @@ from typing import Any, Union, List
 import numpy as np
 from nptyping import NDArray
 
-from .core import types, modulus
+from .core import types, modulus, validator
 from .ElementInGFpn import ElementInGFpn
 
 
@@ -32,6 +32,12 @@ class GFpn:
 
     def __init__(self, p: int,
                  mod_coeffs: Union[List[int], NDArray[Any, int]]):
+        if not validator.is_prime(p):
+            raise ValueError(f"{p} is not a prime number.")
+        
+        if not validator.is_irreducible_poly(np.poly1d(mod_coeffs), p):
+            raise ValueError(f"{mod_coeffs} is not an irreducible polynomial over F{p}.")
+
         self.__p = p
 
         modulus_mod_coeffs = modulus.modulus_coeffs(np.array(mod_coeffs), p)
