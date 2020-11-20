@@ -1,5 +1,5 @@
 from functools import reduce
-from galois_field.core.prime import prime_factorization
+import random as rd
 from typing import List, Union
 from itertools import combinations
 
@@ -32,3 +32,20 @@ def is_primtive_root_over_Fp(el: types.Fp, p: int,
                 return False
 
     return True
+
+
+def random_primitive_root_over_Fp(p: int) -> int:
+    """Return the primitive root over GF(p) randomly.
+
+    Args:
+        p (int): A prime number.
+
+    Returns:
+        int: A primitive root over GF(p).
+    """
+    factories = prime.prime_factorization(p-1)
+
+    for _ in range(p*2):
+        el = rd.randint(1, p-1)
+        if is_primtive_root_over_Fp(el, p, factories):
+            return el
