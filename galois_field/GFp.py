@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .ElementInGFp import ElementInGFp
+from .core import validator
 
 
 class GFp:
@@ -24,6 +25,8 @@ class GFp:
     """
 
     def __init__(self, p: int):
+        if not validator.is_prime(p):
+            raise ValueError(f"{p} is not a prime number.")
         self.__p = p
 
     @property
