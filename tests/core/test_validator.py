@@ -14,3 +14,15 @@ from galois_field.core import validator
 ])
 def test_is_irreducible_poly(poly, p, expected):
     assert validator.is_irreducible_poly(poly, p) == expected
+
+
+@pytest.mark.parametrize('value, expected', [
+    (11, True),
+    (12, False),
+    (101, True),
+    (100, False),
+    (1, False),
+    (2, True)
+])
+def test_is_prime(value, expected):
+    assert validator.is_prime(value) == expected
