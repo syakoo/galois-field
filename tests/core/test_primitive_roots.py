@@ -1,40 +1,26 @@
 import pytest
 
-from galois_field.GFp import GFp
-from galois_field.ElementInGFp import ElementInGFp
+from galois_field.core import primitive_roots as pr
 
 
-@pytest.mark.parametrize('p', [(5), (2), (123456791)])
-def test_GFp_init(p):
-    gf = GFp(p)
-    assert gf.p == p
-
-
-@pytest.mark.parametrize('p', [(6), (4), (123456789)])
-def test_GFp_raises(p):
-    with pytest.raises(ValueError):
-        GFp(p)
-
-
-@pytest.mark.parametrize('p, expected', [
-    (5, 'GF(5)'),
-    (2, 'GF(2)')
+@pytest.mark.parametrize('inputs, expected', [
+    ((2, 5), True),
+    ((4, 5), False),
+    ((11, 31), True),
+    ((9, 31), False),
+    ((295, 499), True),
+    ((296, 499), False),
+    ((2, 5, [2, 2]), True),
+    ((4, 5, [2, 2]), False),
+    ((11, 31, [2, 3, 5]), True),
+    ((9, 31, [2, 3, 5]), False),
+    ((295, 499, [2, 3, 83]), True),
+    ((296, 499, [2, 3, 83]), False)
 ])
-def test_GFp_str(p, expected):
-    gf = GFp(p)
-    assert str(gf) == expected
+def test_is_primitive_root_over_Fp(inputs, expected):
+    result = pr.is_primtive_root_over_Fp(*inputs)
 
-
-@pytest.mark.parametrize('integer, p', [
-    (1, 5),
-    (2, 11),
-    (3, 123456791)
-])
-def test_GFp_elm(integer, p):
-    gf = GFp(p)
-    result = gf.elm(integer)
-
-    assert isinstance(result, ElementInGFp)
+    assert result == expected
 
 
 @pytest.mark.parametrize('p, expected_contain', [
@@ -53,11 +39,10 @@ def test_GFp_elm(integer, p):
            443, 448, 450, 452, 453, 454, 456, 461, 465, 466, 469, 470, 474, 477,
            478, 479, 485, 494]),
 ])
-def test_GFp_random_primitive_root(p, expected_contain):
+def test_random_primitive_root_over_Fp(p, expected_contain):
     LOOP_NUM = 5
-    gfp = GFp(p)
 
     for _ in range(LOOP_NUM):
-        result = gfp.random_primitive_root()
+        result = pr.random_primitive_root_over_Fp(p)
 
         assert result in expected_contain

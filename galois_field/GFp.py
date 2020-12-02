@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .ElementInGFp import ElementInGFp
-from .core import validator
+from .core import validator, primitive_roots
 
 
 class GFp:
@@ -47,3 +47,11 @@ class GFp:
             ElementInGFp: The element in GF(p).
         """
         return ElementInGFp(value, self.p)
+
+    def random_primitive_root(self) -> ElementInGFp:
+        """Return a primitive root over GF(p) randomly.
+
+        Returns:
+            ElementInGFp: A primitive root over GF(p)
+        """
+        return primitive_roots.random_primitive_root_over_Fp(self.__p)
