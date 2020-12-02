@@ -5,13 +5,14 @@ from . import types, modulus, inverse
 
 
 class ElementInGFp:
-    def __init__(self, value: int, p: int):
-        """An Element in GF(p) class.
+    """An Element in GF(p) class.
 
-        Args:
-            value (int): An Element in GF(p).
-            p (int): A prime number.
-        """
+    Args:
+        value (int): An Element in GF(p).
+        p (int): A prime number.
+    """
+
+    def __init__(self, value: int, p: int):
         self.__p = p
         self.__value: types.Fp = modulus.modulus_el(value, p)
 
@@ -87,7 +88,9 @@ class ElementInGFp:
         return int(self.value)
 
     def __eq__(self, other: Union[ElementInGFp, int]) -> bool:
+        if isinstance(other, int):
+            return self.value == other
         if not isinstance(other, ElementInGFp):
             return False
 
-        return self.value == other.value and self.p == other.p
+        return self.value == other.value
