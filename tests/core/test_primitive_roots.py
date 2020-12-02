@@ -1,24 +1,25 @@
 import pytest
 
 from galois_field.core import primitive_roots as pr
+from galois_field.core.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('inputs, expected', [
-    ((2, 5), True),
-    ((4, 5), False),
-    ((11, 31), True),
-    ((9, 31), False),
-    ((295, 499), True),
-    ((296, 499), False),
-    ((2, 5, [2, 2]), True),
-    ((4, 5, [2, 2]), False),
-    ((11, 31, [2, 3, 5]), True),
-    ((9, 31, [2, 3, 5]), False),
-    ((295, 499, [2, 3, 83]), True),
-    ((296, 499, [2, 3, 83]), False)
+    ((ElementInGFp(2, 5),), True),
+    ((ElementInGFp(4, 5),), False),
+    ((ElementInGFp(11, 31),), True),
+    ((ElementInGFp(9, 31),), False),
+    ((ElementInGFp(295, 499),), True),
+    ((ElementInGFp(296, 499),), False),
+    ((ElementInGFp(2, 5), [2, 2]), True),
+    ((ElementInGFp(4, 5), [2, 2]), False),
+    ((ElementInGFp(11, 31), [2, 3, 5]), True),
+    ((ElementInGFp(9, 31), [2, 3, 5]), False),
+    ((ElementInGFp(295, 499), [2, 3, 83]), True),
+    ((ElementInGFp(296, 499), [2, 3, 83]), False)
 ])
-def test_is_primitive_root_over_Fp(inputs, expected):
-    result = pr.is_primtive_root_over_Fp(*inputs)
+def test_is_primitive_root(inputs, expected):
+    result = pr.is_primtive_root(*inputs)
 
     assert result == expected
 
@@ -45,4 +46,5 @@ def test_random_primitive_root_over_Fp(p, expected_contain):
     for _ in range(LOOP_NUM):
         result = pr.random_primitive_root_over_Fp(p)
 
-        assert result in expected_contain
+        assert isinstance(result, ElementInGFp)
+        assert result.value in expected_contain
