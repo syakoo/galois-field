@@ -1,7 +1,7 @@
 import pytest
 
 from galois_field.GFp import GFp
-from galois_field.ElementInGFp import ElementInGFp
+from galois_field.core.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('p', [(5), (2), (123456791)])

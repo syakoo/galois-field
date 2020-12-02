@@ -4,8 +4,8 @@ from typing import Any, Union, List
 import numpy as np
 from nptyping import NDArray
 
+from .core.ElementInGFpn import ElementInGFpn
 from .core import types, modulus, validator
-from .ElementInGFpn import ElementInGFpn
 
 
 class GFpn:

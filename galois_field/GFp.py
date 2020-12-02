@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .ElementInGFp import ElementInGFp
+from .core.ElementInGFp import ElementInGFp
 from .core import validator, primitive_roots
 
 

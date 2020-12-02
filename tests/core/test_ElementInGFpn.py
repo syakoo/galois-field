@@ -3,7 +3,7 @@ from typing import Union
 import numpy as np
 import pytest
 
-from galois_field.ElementInGFpn import ElementInGFpn
+from galois_field.core.ElementInGFpn import ElementInGFpn
 from galois_field.core.types import Fp, Fpn
 
 

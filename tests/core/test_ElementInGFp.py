@@ -1,6 +1,6 @@
 import pytest
 
-from galois_field.ElementInGFp import ElementInGFp
+from galois_field.core.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('value, p, expected_value', [

@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from galois_field.GFpn import GFpn
-from galois_field.ElementInGFpn import ElementInGFpn
+from galois_field.core.ElementInGFpn import ElementInGFpn
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected_coeffs', [
