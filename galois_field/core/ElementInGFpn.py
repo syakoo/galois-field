@@ -8,14 +8,15 @@ from . import types, modulus, inverse
 
 
 class ElementInGFpn:
-    def __init__(self, coeffs: NDArray[Any, int], p: int, mod_poly: np.poly1d):
-        """An Element in GF(p^n) class.
+    """An Element in GF(p^n) class.
 
-        Args:
-            coeffs (NDArray[Any, int]): Coefficients of an element in GF(p^n).
-            p (int): A prime number.
-            mod_poly (np.poly1d): A monic irreducible polynomial.
-        """
+    Args:
+        coeffs (NDArray[Any, int]): Coefficients of an element in GF(p^n).
+        p (int): A prime number.
+        mod_poly (np.poly1d): A monic irreducible polynomial.
+    """
+
+    def __init__(self, coeffs: NDArray[Any, int], p: int, mod_poly: np.poly1d):
         self.p = p
         self.mod_poly = mod_poly
         self.__poly = modulus.modulus_poly(np.poly1d(coeffs), mod_poly, p)
@@ -117,11 +118,12 @@ class ElementInGFpn:
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
-    def __eq__(self, other: ElementInGFpn) -> bool:
-        if not isinstance(other, ElementInGFpn):
+    def __eq__(self, other) -> bool:
+        if isinstance(other, list):
+            return (self.coeffs == other).all()
+        elif isinstance(other, int):
+            return len(self.coeffs) == 1 and self.coeffs[0] == other
+        elif not isinstance(other, ElementInGFpn):
             return False
 
-        return (self.poly == other.poly).all() \
-            and self.p == other.p \
-            and (len(self.mod_poly) == len(other.mod_poly)) \
-            and (self.mod_poly == other.mod_poly).all()
+        return (self.poly == other.poly).all()
