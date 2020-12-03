@@ -1,7 +1,7 @@
 import pytest
 
 from galois_field.GFp import GFp
-from galois_field.ElementInGFp import ElementInGFp
+from galois_field.core.ElementInGFp import ElementInGFp
 
 
 @pytest.mark.parametrize('p', [(5), (2), (123456791)])
@@ -58,6 +58,7 @@ def test_GFp_random_primitive_root(p, expected_contain):
     gfp = GFp(p)
 
     for _ in range(LOOP_NUM):
-        result = gfp.random_primitive_root()
+        result = gfp.random_primitive_elm()
 
-        assert result in expected_contain
+        assert isinstance(result, ElementInGFp)
+        assert result.value in expected_contain

@@ -4,8 +4,8 @@ from typing import Any, Union, List
 import numpy as np
 from nptyping import NDArray
 
-from .core import types, modulus, validator
-from .ElementInGFpn import ElementInGFpn
+from .core.ElementInGFpn import ElementInGFpn
+from .core import types, modulus, validator, primitive_roots as pr
 
 
 class GFpn:
@@ -34,9 +34,10 @@ class GFpn:
                  mod_coeffs: Union[List[int], NDArray[Any, int]]):
         if not validator.is_prime(p):
             raise ValueError(f"{p} is not a prime number.")
-        
+
         if not validator.is_irreducible_poly(np.poly1d(mod_coeffs), p):
-            raise ValueError(f"{mod_coeffs} is not an irreducible polynomial over F{p}.")
+            raise ValueError(
+                f"{mod_coeffs} is not an irreducible polynomial over F{p}.")
 
         self.__p = p
 
@@ -69,3 +70,11 @@ class GFpn:
             ElementInGFpn: The element in GF(p^n).
         """
         return ElementInGFpn(np.array(coeffs), self.p, self.mod_poly)
+
+    def random_primitive_elm(self) -> ElementInGFpn:
+        """Return a primitive element in GF(p^n) randomly.
+
+        Returns:
+            ElementInGFpn: A primitive root in GF(p^n)
+        """
+        return pr.random_primitive_root_over_Fpn(self.__p, self.mod_coeffs)

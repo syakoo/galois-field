@@ -3,7 +3,7 @@ from typing import Union
 import numpy as np
 import pytest
 
-from galois_field.ElementInGFpn import ElementInGFpn
+from galois_field.core.ElementInGFpn import ElementInGFpn
 from galois_field.core.types import Fp, Fpn
 
 
@@ -148,13 +148,14 @@ def test_GFpn_pow(el, exp, expected_coeffs):
     (ElementInGFpn(np.array([1, 2]), 11, np.array([1, 0, 1])),
      ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1])), False),
     (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1])),
-     ElementInGFpn(np.array([1, 1]), 7, np.array([1, 0, 1])), False),
+     ElementInGFpn(np.array([1, 1]), 7, np.array([1, 0, 1])), True),
     (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1])),
-     ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1, 4])), False),
+     ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1, 4])), True),
+    (ElementInGFpn(np.array([1, 1]), 11, np.array([1, 0, 1])), [1, 1], True),
+    (ElementInGFpn(np.array([1]), 11, np.array([1, 0, 1])), 1, True),
 ])
 def test_GFpn_equal(el1, el2, expected):
     result = el1 == el2
-    print(result)
 
     assert result == expected
 
