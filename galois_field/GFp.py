@@ -48,10 +48,10 @@ class GFp:
         """
         return ElementInGFp(value, self.p)
 
-    def random_primitive_root(self) -> ElementInGFp:
-        """Return a primitive root over GF(p) randomly.
+    def random_primitive_elm(self) -> ElementInGFp:
+        """Return a primitive element in GF(p) randomly.
 
         Returns:
-            ElementInGFp: A primitive root over GF(p)
+            ElementInGFp: A primitive root in GF(p)
         """
         return primitive_roots.random_primitive_root_over_Fp(self.__p)

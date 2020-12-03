@@ -58,7 +58,7 @@ def test_GFp_random_primitive_root(p, expected_contain):
     gfp = GFp(p)
 
     for _ in range(LOOP_NUM):
-        result = gfp.random_primitive_root()
+        result = gfp.random_primitive_elm()
 
         assert isinstance(result, ElementInGFp)
         assert result.value in expected_contain

@@ -1,7 +1,9 @@
+import numpy as np
 import pytest
 
 from galois_field.core import primitive_roots as pr
 from galois_field.core.ElementInGFp import ElementInGFp
+from galois_field.core.ElementInGFpn import ElementInGFpn
 
 
 @pytest.mark.parametrize('inputs, expected', [
@@ -16,7 +18,16 @@ from galois_field.core.ElementInGFp import ElementInGFp
     ((ElementInGFp(11, 31), [2, 3, 5]), True),
     ((ElementInGFp(9, 31), [2, 3, 5]), False),
     ((ElementInGFp(295, 499), [2, 3, 83]), True),
-    ((ElementInGFp(296, 499), [2, 3, 83]), False)
+    ((ElementInGFp(296, 499), [2, 3, 83]), False),
+    ((ElementInGFpn(np.array([1, 0]), 2, np.poly1d([1, 1, 1])),), True),
+    ((ElementInGFpn(np.array([1]), 2, np.poly1d([1, 1, 1])),), False),
+    ((ElementInGFpn(np.array([2, 2, 3]), 7, np.poly1d([1, 0, 0, 2])),), True),
+    ((ElementInGFpn(np.array([2, 3]), 7, np.poly1d([1, 0, 0, 2])),), False),
+    ((ElementInGFpn(np.array([2, 3]), 11, np.poly1d([1, 0, 1, 4])),), True),
+    ((ElementInGFpn(np.array([2, 2, 3]),
+                    11, np.poly1d([1, 0, 1, 4])),), False),
+    ((ElementInGFpn(np.array([1, 0]), 2, np.poly1d([1, 1, 1])), [2, 2]), True),
+    ((ElementInGFpn(np.array([1]), 2, np.poly1d([1, 1, 1])), [2, 2]), False),
 ])
 def test_is_primitive_root(inputs, expected):
     result = pr.is_primtive_root(*inputs)
@@ -48,3 +59,19 @@ def test_random_primitive_root_over_Fp(p, expected_contain):
 
         assert isinstance(result, ElementInGFp)
         assert result.value in expected_contain
+
+
+@pytest.mark.parametrize('p, mod_coeffs, expected_contain', [
+    (2, [1, 1, 1], [[1, 0], [1, 1]]),
+    (3, [1, 1, 0, 2], [[1, 2], [2, 0], [2, 2], [1, 0, 1], [1, 0, 2], [1, 2, 0],
+                       [2, 0, 0], [2, 1, 1], [2, 1, 2], [2, 2, 0], [2, 2, 1], [2, 2, 2]]),
+])
+def test_random_primitive_root_over_Fpn(p, mod_coeffs, expected_contain):
+    LOOP_NUM = 5
+    expected_contain_str = list(map(str, expected_contain))
+
+    for _ in range(LOOP_NUM):
+        result = pr.random_primitive_root_over_Fpn(p, mod_coeffs)
+
+        assert isinstance(result, ElementInGFpn)
+        assert str(list(result.coeffs)) in expected_contain_str
