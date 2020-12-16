@@ -92,6 +92,10 @@ def modulus_pow_poly(poly: np.poly1d, e: int,
     ans = 1
     cur_exp = 1
     stack_polys = [poly]
+    # poly^e' === poly^e (over GF) s.t e' = e (mod p**n - 1)
+    e %= p ** (len(mod_poly.coeffs) - 1) - 1
+    if e == 0:
+        return np.poly1d([1])
 
     while cur_exp*2 < e:
         cur_exp *= 2

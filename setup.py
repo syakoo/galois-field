@@ -10,7 +10,7 @@ def _requires_from_file(filename):
 
 setuptools.setup(
     name="galois_field",
-    version="2.1.0",
+    version="2.1.1",
     author="Sakoda Takuya",
     author_email="sakodata0318@gmail.com",
     description="Galois Field: GF(p^n)",
@@ -23,9 +23,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    entry_points={
-        'console_scripts': ['galois_field = galois_field.GFpn:GFpn']
-    },
     install_requires=_requires_from_file('requirements.txt'),
     setup_requires=["pytest-runner"],
     test_requires=["pytest"],

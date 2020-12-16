@@ -26,8 +26,8 @@ def test_GFpn_raises(p, mod_coeffs):
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected', [
-    (5, np.array([1, 0, 2]), 'GF(5^3)'),
-    (2, np.array([1, 0, 0, 1, 1]), 'GF(2^5)')
+    (5, np.array([1, 0, 2]), 'GF(5^2)'),
+    (2, np.array([1, 0, 0, 1, 1]), 'GF(2^4)')
 ])
 def test_GFpn_str(p, mod_coeffs, expected):
     gf = GFpn(p, mod_coeffs)
