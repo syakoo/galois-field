@@ -61,7 +61,7 @@ class GFpn:
         return self.__mod_poly
 
     def __str__(self) -> str:
-        return f'GF({self.p}^{len(self.mod_coeffs)})'
+        return f'GF({self.p}^{len(self.mod_coeffs) - 1})'
 
     def elm(self, coeffs: Union[NDArray[Any, int], List[int]]) -> ElementInGFpn:
         """Generate the Element from coeffs in GF(p^n).
