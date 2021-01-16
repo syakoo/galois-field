@@ -52,14 +52,14 @@ def test_GFElementInGFp_add(el1, el2, expected_value):
     assert result.value == expected_value
 
 
-@pytest.mark.parametrize('value1, value2, p, expected_value', [
-    (3, 1, 5, 2),
-    (223, 1, 11, 2),
-    (3, 5, 123456791, 123456789)
+@pytest.mark.parametrize('el1, el2, expected_value', [
+    (ElementInGFp(3, 5), ElementInGFp(1, 5), 2),
+    (ElementInGFp(223, 11), ElementInGFp(1, 11), 2),
+    (ElementInGFp(3, 123456791), ElementInGFp(5, 123456791), 123456789),
+    (ElementInGFp(3, 5), 1, 2),
+    (223, ElementInGFp(1, 11), 2)
 ])
-def test_GFElementInGFp_sub(value1, value2, p, expected_value):
-    el1 = ElementInGFp(value1, p)
-    el2 = ElementInGFp(value2, p)
+def test_GFElementInGFp_sub(el1, el2, expected_value):
     result = el1 - el2
 
     assert isinstance(result, ElementInGFp)
