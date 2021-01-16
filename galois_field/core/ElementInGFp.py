@@ -41,10 +41,28 @@ class ElementInGFp:
         return f'ElementInGFp({self.value}, {self.p})'
 
     def __add__(self, other: ElementInGFp) -> ElementInGFp:
-        return ElementInGFp(self.value + other.value, self.p)
+        if isinstance(other, ElementInGFp):
+            return ElementInGFp(self.value + other.value, self.p)
+
+        return ElementInGFp(self.value + other, self.p)
+
+    def __radd__(self, other: ElementInGFp) -> ElementInGFp:
+        if isinstance(other, ElementInGFp):
+            return ElementInGFp(self.value + other.value, self.p)
+
+        return ElementInGFp(self.value + other, self.p)
 
     def __sub__(self, other: ElementInGFp) -> ElementInGFp:
-        return ElementInGFp(self.value - other.value, self.p)
+        if isinstance(other, ElementInGFp):
+            return ElementInGFp(self.value - other.value, self.p)
+
+        return ElementInGFp(self.value - other, self.p)
+
+    def __rsub__(self, other: ElementInGFp) -> ElementInGFp:
+        if isinstance(other, ElementInGFp):
+            return ElementInGFp(other.value - self.value, self.p)
+
+        return ElementInGFp(other - self.value, self.p)
 
     def __mul__(self, other: Union[ElementInGFp, int]) -> ElementInGFp:
         if isinstance(other, int):

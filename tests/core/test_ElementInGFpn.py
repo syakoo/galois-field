@@ -48,13 +48,25 @@ def test_ElementInGFpn_repr(coeffs, p, mod_coeffs, expected):
     (np.array([1, 2, 3, 4]), np.array([1, 2, 3, 4]), 5,
      np.array([1, 0, 0, 0, 2]), [2, 4, 1, 3]),
     (np.array([1, 2, 3, 4]), np.array([1, 2, 3, 4]),
-     11, np.array([1, 0, 1]), [4, 4])
+     11, np.array([1, 0, 1]), [4, 4]),
+    (3, np.array([1, 2, 3, 4]), 5,
+     np.array([1, 0, 0, 0, 2]), [1, 2, 3, 2]),
+    (np.array([1, 2, 3, 4]), 2,
+     11, np.array([1, 0, 1]), [2, 4])
 ])
 def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
                   p: int, mod_coeffs: Fpn, expected_coeffs):
-    el1 = ElementInGFpn(coeffs1, p, np.poly1d(mod_coeffs))
-    el2 = ElementInGFpn(coeffs2, p, np.poly1d(mod_coeffs))
+    if isinstance(coeffs1, int):
+        el1 = coeffs1
+    else:
+        el1 = ElementInGFpn(coeffs1, p, np.poly1d(mod_coeffs))
+
+    if isinstance(coeffs2, int):
+        el2 = coeffs2
+    else:
+        el2 = ElementInGFpn(coeffs2, p, np.poly1d(mod_coeffs))
     result = el1 + el2
+    print(result)
 
     assert result.coeffs == expected_coeffs
 
@@ -62,12 +74,22 @@ def test_GFpn_add(coeffs1: Fpn, coeffs2: Fpn,
 @pytest.mark.parametrize('coeffs1, coeffs2, p, mod_coeffs, expected_coeffs', [
     (np.array([1, 2, 3, 4]), np.array([4, 3, 2, 1]),
      5, np.array([1, 0, 0, 0, 2]), [2, 4, 1, 3]),
-    (np.array([1, 2, 3, 4]), [4, 3, 2, 1], 11, np.array([1, 0, 1]), [4, 4])
+    (np.array([1, 2, 3, 4]), [4, 3, 2, 1], 11, np.array([1, 0, 1]), [4, 4]),
+    (np.array([1, 2, 3, 4]), 3,
+     5, np.array([1, 0, 0, 0, 2]), [1, 2, 3, 1]),
+    (4, [4, 3, 2, 1], 11, np.array([1, 0, 1]), [2, 6])
 ])
 def test_GFpn_sub(coeffs1: Fpn, coeffs2: Fpn,
                   p: int, mod_coeffs: Fpn, expected_coeffs):
-    el1 = ElementInGFpn(coeffs1, p, np.poly1d(mod_coeffs))
-    el2 = ElementInGFpn(coeffs2, p, np.poly1d(mod_coeffs))
+    if isinstance(coeffs1, int):
+        el1 = coeffs1
+    else:
+        el1 = ElementInGFpn(coeffs1, p, np.poly1d(mod_coeffs))
+
+    if isinstance(coeffs2, int):
+        el2 = coeffs2
+    else:
+        el2 = ElementInGFpn(coeffs2, p, np.poly1d(mod_coeffs))
     result = el1 - el2
 
     assert result.coeffs == expected_coeffs
