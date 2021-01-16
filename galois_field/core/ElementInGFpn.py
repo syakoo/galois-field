@@ -82,7 +82,18 @@ class ElementInGFpn:
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
     def __sub__(self, other: ElementInGFpn) -> ElementInGFpn:
-        result = self.poly - other.poly
+        if isinstance(other, ElementInGFpn):
+            result = self.poly - other.poly
+        else:
+            result = self.poly - other
+
+        return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
+    def __rsub__(self, other: ElementInGFpn) -> ElementInGFpn:
+        if isinstance(other, ElementInGFpn):
+            result = other.poly - self.poly
+        else:
+            result = other - self.poly
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
