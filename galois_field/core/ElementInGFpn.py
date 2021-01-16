@@ -29,7 +29,7 @@ class ElementInGFpn:
     @property
     def coeffs(self) -> types.Fpn:
         """Coefficients of the polynomial in GF(p^n)."""
-        return self.__poly.coeffs
+        return list(map(int, self.__poly.coeffs))
 
     def inverse(self) -> ElementInGFpn:
         """Compute the inverse of the element in GF(p^n).
@@ -48,7 +48,7 @@ class ElementInGFpn:
             else:
                 sig = " + "
 
-            if coeff == 0:
+            if coeff == 0 and len(self.coeffs) - 1 != i:
                 dig = ''
             elif i == 0:
                 dig = f'{sig}{coeff}'
@@ -120,7 +120,7 @@ class ElementInGFpn:
 
     def __eq__(self, other) -> bool:
         if isinstance(other, list):
-            return (self.coeffs == other).all()
+            return self.coeffs == other
         elif isinstance(other, int):
             return len(self.coeffs) == 1 and self.coeffs[0] == other
         elif not isinstance(other, ElementInGFpn):
