@@ -66,7 +66,18 @@ class ElementInGFpn:
         return f'ElementInGFpn({c2str(self.coeffs)}, {self.p}, {mod_str})'
 
     def __add__(self, other: ElementInGFpn) -> ElementInGFpn:
-        result = self.poly + other.poly
+        if isinstance(other, ElementInGFpn):
+            result = self.poly + other.poly
+        else:
+            result = self.poly + other
+
+        return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
+
+    def __radd__(self, other: ElementInGFpn) -> ElementInGFpn:
+        if isinstance(other, ElementInGFpn):
+            result = self.poly + other.poly
+        else:
+            result = self.poly + other
 
         return ElementInGFpn(result.coeffs, self.p, self.mod_poly)
 
