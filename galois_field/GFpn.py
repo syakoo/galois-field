@@ -32,13 +32,6 @@ class GFpn:
 
     def __init__(self, p: int,
                  mod_coeffs: Union[List[int], NDArray[Any, int]]):
-        if not validator.is_prime(p):
-            raise ValueError(f"{p} is not a prime number.")
-
-        if not validator.is_irreducible_poly(np.poly1d(mod_coeffs), p):
-            raise ValueError(
-                f"{mod_coeffs} is not an irreducible polynomial over F{p}.")
-
         self.__p = p
 
         modulus_mod_coeffs = modulus.modulus_coeffs(np.array(mod_coeffs), p)
@@ -62,6 +55,15 @@ class GFpn:
 
     def __str__(self) -> str:
         return f'GF({self.p}^{len(self.mod_coeffs) - 1})'
+
+    def is_valid(self) -> bool:
+        """Determine if this field is valid.
+
+        Returns:
+            bool: Is valid ?
+        """
+        return validator.is_prime(self.p) and \
+            validator.is_irreducible_poly(self.mod_poly, self.p)
 
     def elm(self, coeffs: Union[NDArray[Any, int], List[int]]) -> ElementInGFpn:
         """Generate the Element from coeffs in GF(p^n).

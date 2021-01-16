@@ -15,14 +15,16 @@ def test_GFpn_init(p, mod_coeffs, expected_coeffs):
     assert (gf.mod_coeffs == expected_coeffs).all()
 
 
-@pytest.mark.parametrize('p, mod_coeffs', [
-    (4, np.array([1, 0, 1])),
-    (5, np.array([1, 0, 1])),
-    (11, np.array([1, 0, 0, 0, 0, 1, 1]))
+@pytest.mark.parametrize('p, mod_coeffs, expected', [
+    (5, np.array([1, 0, 2]), True),
+    (2, np.array([1, 1, 1]), True),
+    (4, np.array([1, 0, 1]), False),
+    (5, np.array([1, 0, 1]), False),
+    (11, np.array([1, 0, 0, 0, 0, 1, 1]), False)
 ])
-def test_GFpn_raises(p, mod_coeffs):
-    with pytest.raises(ValueError):
-        GFpn(p, mod_coeffs)
+def test_GFpn_is_valid(p, mod_coeffs, expected):
+    gf = GFpn(p, mod_coeffs)
+    assert gf.is_valid() == expected
 
 
 @pytest.mark.parametrize('p, mod_coeffs, expected', [
