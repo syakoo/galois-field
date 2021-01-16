@@ -25,8 +25,6 @@ class GFp:
     """
 
     def __init__(self, p: int):
-        if not validator.is_prime(p):
-            raise ValueError(f"{p} is not a prime number.")
         self.__p = p
 
     @property
@@ -36,6 +34,14 @@ class GFp:
 
     def __str__(self) -> str:
         return f'GF({self.p})'
+
+    def is_valid(self) -> bool:
+        """Determine if this field is valid.
+
+        Returns:
+            bool: Is valid ?
+        """
+        return validator.is_prime(self.__p)
 
     def elm(self, value: int) -> ElementInGFp:
         """Generate the element from a value in GF(p).
