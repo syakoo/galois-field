@@ -26,5 +26,5 @@ setuptools.setup(
     install_requires=_requires_from_file('requirements.txt'),
     setup_requires=["pytest-runner"],
     test_requires=["pytest"],
-    python_requires='>=3.8',
+    python_requires='>=3.7',
 )
